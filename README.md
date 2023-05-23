@@ -1,1 +1,1 @@
-# web-shop
+Web Shop rules
