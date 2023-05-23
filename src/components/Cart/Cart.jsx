@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import CartProduct from '../Products/CartProduct';
 
 const Cart = () => {
 
@@ -31,12 +32,14 @@ const Cart = () => {
         </form>
       </div>
       <div className="cart-right">
-        <div className='cart-products'>Products</div>
+        <div className='cart-products'>
+          <CartProduct />
+        </div>
         <div className='cart-sum'>
           <div className='total-price'>Total Price: 000</div>
           <div className='cart-submit'>
             <div className='captcha'>CAPTCHA</div>
-            <button type="submit" class="btn btn-primary cart-btn">Submit</button>
+            <button type="submit" className="btn btn-primary cart-btn">Submit</button>
           </div>
         </div>
         
