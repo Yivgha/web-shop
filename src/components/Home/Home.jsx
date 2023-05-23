@@ -1,19 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import Products from "../Products/Products";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
 
     return (
-        <div>
-            DASHBOARD
-
+        <div className="container">
+            <h1>DASHBOARD</h1>
             <Navbar />
-            <Products />
-            <Outlet />
+<Outlet/>
         </div>
     )
 }
 
-export default Home ;
+export default Home;

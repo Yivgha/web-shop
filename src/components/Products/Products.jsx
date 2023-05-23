@@ -4,7 +4,7 @@ import React from "react";
 const Products = () => {
 
     return (
-        <div>
+        <div className='container product-container'>
             Product1
             Product2
              Product3
