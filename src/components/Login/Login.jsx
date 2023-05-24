@@ -16,24 +16,24 @@ const Login = () => {
 
 
   return (
-      <div className='container'>
-         <h1>Login</h1>
-<hr></hr>
+    <div className='container login-container'>
+      <h1 className='login-title'>Login</h1>
+  <hr></hr>
 <form className='form-group' autoComplete="off"
               onSubmit={handleLogin}>
-              <label>Email</label>
-              <input type="email" className='form-control' required
+              <label className='login-label'>Email</label>
+              <input type="email" className='form-control login-input' required
                   onChange={(e) => setEmail(e.target.value)} value={email} placeholder='Set email'></input>
               
-              <label>Password</label>
-              <input type="password" className='form-control' required onChange={(e) => setPassword(e.target.value)} value={password}
+              <label className='login-label'>Password</label>
+              <input type="password" className='form-control login-input' required onChange={(e) => setPassword(e.target.value)} value={password}
               placeholder='Set password'></input>
 
-              <div className='btn-box'>
-                  <span>Don't have an accont? Sign in 
-                      <Link to="/signup" className='link'>HERE</Link>
+              <div className='btn-box login-btn-box'>
+                  <span className='login-bottom-text'>Don't have an accont? Sign in 
+                      <Link to="/signup" className='link'> HERE</Link>
                   </span>
-                  <button type="submit" className='btn btn-success btn-md'>LOGIN</button>
+                  <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
               </div>
             </form>
           <Outlet />

@@ -17,26 +17,27 @@ const Signup = () => {
     }
 
   return (
-      <div className='container'>
-          <h1>Sign Up</h1>
+      <div className='container signup-container'>
+          <h1 className='signup-title'>Sign Up</h1>
           <hr></hr>
             <form className='form-group' autoComplete="off" onSubmit={handleSignup}>
-                <label>Full Name</label>
-                <input type="text" className='form-control' required
+                <label className='signup-label'>Full Name</label>
+                <input type="text" className='form-control signup-input' required
                 onChange={(e)=>setFullname(e.target.value)} value={fullName}></input>
                 
-                <label>Email</label>
-                <input type="email" className='form-control' required
+                <label className='signup-label'>Email</label>
+                <input type="email" className='form-control signup-input' required
                  onChange={(e)=>setEmail(e.target.value)} value={email}></input>
                 
-                <label>Password</label>
-                <input type="password" className='form-control' required
+                <label className='signup-label'>Password</label>
+                <input type="password" className='form-control signup-input' required
                  onChange={(e)=>setPassword(e.target.value)} value={password}></input>
                 
-                <div className='btn-box'>
-                    <span>Already have an account Login
-                    <Link to="/login" className='link'> Here</Link></span>
-                    <button type="submit" className='btn btn-success btn-md'>SIGN UP</button>
+                <div className='btn-box signup-btn-box'>
+                    <span className='signup-bottom-text'>Already have an account? Login
+                      <Link to="/login" className='link'> HERE</Link>
+                  </span>
+                    <button type="submit" className='btn btn-success btn-md signup-btn'>SIGN UP</button>
                 </div>
           </form>
           <Outlet />
