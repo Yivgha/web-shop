@@ -24,6 +24,11 @@
     height: 50px;
 }
 
+.login-input::placeholder{
+    font-size: 15px;
+    padding: 5px;
+}
+
 .login-btn-box{
      margin: 30px auto 0 auto;
     display: flex;

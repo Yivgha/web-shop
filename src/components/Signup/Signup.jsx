@@ -14,29 +14,29 @@ const Signup = () => {
     const [errorMsg, setErrorMsg]=useState('');
     const [successMsg, setSuccessMsg]=useState('');
 
-    const handleSignup=(e)=>{
-        e.preventDefault();
-      auth.createUserWithEmailAndPassword(email, password).then((credentials) => {
-        console.log(credentials);
-        fs.collection("users").doc(credentials.user.uid).set({
-          FullName: fullName,
-          Email: email,
-          Password: password,
-        }).then(() => {
-          setSuccessMsg("Signup Successful. You will now automatically get redirected to Home Page");
-          setFullname("");
-          setEmail("");
-          setPassword("");
-          setErrorMsg("");
-          setTimeout(() => {
-            setSuccessMsg("");
-            navigate("/")
-          }, 5000);
-        }).catch((error)=>{setErrorMsg(error.message)});
-      }).catch((error) => {
-        setErrorMsg(error.message);
-      })
-    }
+  const handleSignup = (e) => {
+    e.preventDefault();
+    auth.createUserWithEmailAndPassword(email, password).then((credentials) => {
+      console.log(credentials);
+      fs.collection("users").doc(credentials.user.uid).set({
+        FullName: fullName,
+        Email: email,
+        Password: password,
+      }).then(() => {
+        setSuccessMsg("Signup Successful. You will now automatically get redirected to Home Page");
+        setFullname("");
+        setEmail("");
+        setPassword("");
+        setErrorMsg("");
+        setTimeout(() => {
+          setSuccessMsg("");
+          navigate("/")
+        }, 5000);
+      }).catch((error) => { setErrorMsg(error.message) });
+    }).catch((error) => {
+      setErrorMsg(error.message);
+    })
+  };
 
   return (
       <div className='container signup-container'>
@@ -45,15 +45,15 @@ const Signup = () => {
       {successMsg && <><div className="success-msg">{successMsg}</div></>}
             <form className='form-group' autoComplete="off" onSubmit={handleSignup}>
                 <label className='signup-label'>Full Name</label>
-                <input type="text" className='form-control signup-input' required
+                <input type="text" className='form-control signup-input' required placeholder='Set your name'
                 onChange={(e)=>setFullname(e.target.value)} value={fullName}></input>
                 
                 <label className='signup-label'>Email</label>
-                <input type="email" className='form-control signup-input' required
+                <input type="email" className='form-control signup-input' required placeholder='Set your email'
                  onChange={(e)=>setEmail(e.target.value)} value={email}></input>
                 
                 <label className='signup-label'>Password</label>
-                <input type="password" className='form-control signup-input' required
+                <input type="password" className='form-control signup-input' required placeholder='Set your password'
                  onChange={(e)=>setPassword(e.target.value)} value={password}></input>
                 
                 <div className='btn-box signup-btn-box'>
