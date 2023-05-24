@@ -1,5 +1,7 @@
-@import "./utils//reset";
-@import "./utils//variables";
+@import "./utils/reset";
+@import "./utils/variables";
+@import "./utils/keyframes";
+@import "./utils/global";
 
 @import "./components/app";
 @import "./components/navbar";

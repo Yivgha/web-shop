@@ -1,0 +1,1 @@
+export { auth, fs, storage } from "./config";

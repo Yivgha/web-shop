@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+import { auth } from '../../config/config';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // const [errorMsg, setErrorMsg] = useState("");
-    // const [successMsg, setSuccessMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState("");
 
     const handleLogin = (e) => {
-        e.preventDefault();
-        console.log(email.password);
+      e.preventDefault();
+      auth.signInWithEmailAndPassword(email, password).then(() => {
+        setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+        setEmail("");
+          setPassword("");
+          setErrorMsg("");
+          setTimeout(() => {
+            setSuccessMsg("");
+            navigate("/")
+          }, 5000);
+        }).catch((error)=>{setErrorMsg(error.message)});
+      
     }
 
 
   return (
     <div className='container login-container'>
       <h1 className='login-title'>Login</h1>
-  <hr></hr>
+      <hr></hr>
+      {successMsg && <><div className="success-msg">{successMsg}</div></>}
 <form className='form-group' autoComplete="off"
               onSubmit={handleLogin}>
               <label className='login-label'>Email</label>
@@ -35,7 +50,8 @@ const Login = () => {
                   </span>
                   <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
               </div>
-            </form>
+      </form>
+       {errorMsg && <><div className="error-msg">{errorMsg}</div></>}
           <Outlet />
     </div>
   )

@@ -1,0 +1,33 @@
+.flex-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.slash{
+    height: 100%;
+    width: 1px;
+    color: var(--black-text-color);
+    margin-left: 5px;
+    margin-right: 8px;
+}
+
+.nav-side-right{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.nav-side-left{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.main-logo{
+    margin-right: 10px;
+    width: 64px;
+    height: 64px;
+    animation: rotation 3s infinite linear;
+}

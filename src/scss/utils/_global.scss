@@ -1,0 +1,16 @@
+.success-msg{
+   width: 100%;
+  padding: 14px;
+  background-color: var(--success-msg-bg-color);
+  color: var(--success-msg-color);
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.error-msg{
+    width: 100%;
+  padding: 14px;
+  background-color: var(--error-msg-bg-color);
+  color: var(--error-msg-color);
+  margin-top: 10px;
+}
