@@ -1,29 +1,30 @@
 .shop-container{
-    padding: 20px;
+    padding-top: 20px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    column-gap: 10px;
-    width: 90vw;
-    height: 80vh;
+    column-gap: 30px;
+    height: 100%;
 }
 
 .left-side{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid var(--black-border-color);
-    width: 100%;
-    height: 100%;
-    padding: 10px 5px;
+    border: 3px solid var(--black-border-color);
+    padding: 20px;
+    height: 85vh;
+    overflow-y: scroll;
 }
 
 .right-side{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    border: 1px solid var(--black-border-color);
-    width: 100%;
-    padding: 5px;
+    border: 3px solid var(--black-border-color);
+    padding: 20px;
+    height: 85vh;
+    overflow-y: scroll;
+ padding: 20px;
+ display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .shop-title{
@@ -31,6 +32,12 @@
     font-weight: 400;
     margin-top: 20px;
     margin-bottom: 15px;
+}
+.right-side-title{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .shop-item-name{
@@ -42,17 +49,11 @@ margin-top: 15px;
 }
 
 .shop-list-item .btn-success{
-    width: 300px;
+    width: 350px;
     height: 50px;
 }
 
 .shop-btn-text{
     font-size: 20px;
     text-transform: uppercase;
-}
-
-// ONE SHOP
-
-.shop-product-msg{
-    font-size: 30px;
 }

@@ -21,11 +21,8 @@ const [currentUser, setCurrentUser] = useState(null);
             })
         }, []);
 
-    // const user = setCurrentUser(currentUser);
-    // console.log(currentUser);
-
     return (
-        <div className="container home-container">
+        <div className="container-fluid">
             <Navbar user={currentUser} />
             <Outlet/>
         </div>

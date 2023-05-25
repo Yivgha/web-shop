@@ -4,7 +4,6 @@
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-           overflow: scroll;
   overflow-x: hidden;
 }
 *, *:before, *:after {
@@ -15,6 +14,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
   line-height: 1;

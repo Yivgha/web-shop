@@ -15,7 +15,7 @@ const Navbar = ({ user }) => {
     }
 
     return (
-        <div className="container flex-nav">
+        <div className="container-fluid flex-nav">
             <div className="container nav-side-left">
                 <Link to="/">
                     <img src={logo} alt="main logo" className="main-logo" />
