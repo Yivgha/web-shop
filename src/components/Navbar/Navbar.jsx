@@ -11,7 +11,6 @@ const Navbar = ({currentuser}) => {
     const [ { user }, dispatch ] = useStateValue();
     
     const handleLogout = () => {
-        console.log("logout");
         auth.signOut().then(() => {
             navigate("/login"); 
             dispatch({
