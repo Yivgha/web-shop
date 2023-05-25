@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { auth, fs } from '../../config';
 import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,14 +13,27 @@ const Signup = () => {
     const [password, setPassword]=useState('');
 
     const [errorMsg, setErrorMsg]=useState('');
-    const [successMsg, setSuccessMsg]=useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  
+  const provider = new GoogleAuthProvider();
+  const login = async () => {
+ const response =  await auth.signInWithPopup(provider).then(() => {
+  setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+      setEmail("");
+      setPassword("");
+   setErrorMsg("");
+  navigate("/");
+    }
+   )
+    console.log(response);
+  }
 
   const handleSignup = (e) => {
     e.preventDefault();
     auth.createUserWithEmailAndPassword(email, password).then((credentials) => {
       console.log(credentials);
       fs.collection("users").doc(credentials.user.uid).set({
-        FullName: fullName,
+        displayName: fullName,
         Email: email,
         Password: password,
       }).then(() => {
@@ -58,7 +72,8 @@ const Signup = () => {
                 
                 <div className='btn-box signup-btn-box'>
                     <span className='signup-bottom-text'>Already have an account? Login
-                      <Link to="/login" className='link'> HERE</Link>
+            <Link to="/login" className='link'> HERE </Link>
+            or login with <button className='btn btn-primary btn-md' onClick={login}>Google</button>
                   </span>
                     <button type="submit" className='btn btn-success btn-md signup-btn'>SIGN UP</button>
                 </div>

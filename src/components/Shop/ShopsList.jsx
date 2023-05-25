@@ -32,7 +32,7 @@ const [products, setProducts] = useState([])
             </div>
             ))) 
       }
-    {products > 0 && <OneShop chosenShop={chosenShop} />}
+      {products > 0 && <OneShop chosenShop={chosenShop} path={path} />}
       
       </>
   )

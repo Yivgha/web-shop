@@ -4,7 +4,7 @@ import logo from "../../assets/logo64.png";
 import { GiShoppingCart } from "react-icons/gi";
 import { auth } from "../../config";
 
-const Navbar = ({ user }) => {
+const Navbar = ({user}) => {
     const navigate = useNavigate();
     
     const handleLogout = () => {

@@ -8,6 +8,11 @@ const OneShop = ({path }) => {
      const query = fs.collection(path);
     const [docs, loading, error] = useCollectionData(query);
     
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        
+}
+
     return (
         <div className='container-fluid'>
             <ul className='shop-product-list'>
@@ -23,7 +28,7 @@ const OneShop = ({path }) => {
                                   <h3 className='shop-title'>{doc.name}</h3>
                                   <h4 className='shop-description'>Price: {doc.price}</h4>
                           </div>
-                              <button type="button" className="btn btn-dark add-to-cart-btn">Add to Cart</button>
+                              <button type="button" className="btn btn-dark add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
                           
                       </div>
                   </li>

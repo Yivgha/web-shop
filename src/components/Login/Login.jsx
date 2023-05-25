@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import { auth } from '../../config';
+import { auth} from '../../config';
+import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useStateValue } from '../../context/StateProvider';
+import { actionType } from '../../context/reducer';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,7 +14,28 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
-    const [successMsg, setSuccessMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  
+
+
+  const provider = new GoogleAuthProvider();
+  const [ user, dispatch] = useStateValue();
+
+  const login = async () => {
+ const {user: {refreshToken, providerData}} =  await auth.signInWithPopup(provider).then(() => {
+  setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+      setEmail("");
+      setPassword("");
+   setErrorMsg("");
+  navigate("/");
+    }
+   )
+    dispatch({
+      type: actionType.SET_USER,
+      user: providerData[0],
+    });
+  }
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -25,7 +49,7 @@ const Login = () => {
         navigate("/")
       }, 3000);
     }).catch((error) => { setErrorMsg(error.message) });
-      
+ 
   };
 
 
@@ -46,8 +70,10 @@ const Login = () => {
 
               <div className='btn-box login-btn-box'>
                   <span className='login-bottom-text'>Don't have an accont? Sign in 
-                      <Link to="/signup" className='link'> HERE</Link>
-                  </span>
+            <Link to="/signup" className='link'> HERE </Link>
+            or login with <button className='btn btn-primary btn-md' onClick={login}>Google</button>
+          </span>
+  
                   <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
               </div>
       </form>

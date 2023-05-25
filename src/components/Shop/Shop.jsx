@@ -8,11 +8,9 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 const Shop = () => {
 
   const shopsQ = fs.collection("shops");
-
   const [shops, setShops] = useState([]); 
-
   const [markets, loading, error] = useCollectionData(shopsQ);
-
+  
 
   const getShops = async () => {
     const shops = await fs.collection("shops").get();
