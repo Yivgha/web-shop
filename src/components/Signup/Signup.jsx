@@ -5,6 +5,9 @@ import { auth, fs } from '../../config';
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 
+import { useStateValue } from '../../context/StateProvider';
+import { actionType } from '../../context/reducer';
+
 const Signup = () => {
   const navigate = useNavigate();
 
@@ -16,21 +19,31 @@ const Signup = () => {
   const [successMsg, setSuccessMsg] = useState('');
   
   const provider = new GoogleAuthProvider();
+    const [dispatch] = useStateValue();
+
   const login = async () => {
- const response =  await auth.signInWithPopup(provider).then(() => {
-  setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+    const res = await auth.signInWithPopup(provider).then((credentials) => {
+      fs.collection("users").doc(credentials.user.uid).set({
+     displayName: credentials.user.uid,
+      }).then(() => {
+        setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+        setFullname("");
       setEmail("");
       setPassword("");
    setErrorMsg("");
   navigate("/");
-    }
-   )
-    console.log(response);
+   }).catch((error) => { setErrorMsg(error.message) });
+    }).catch((error) => {
+      setErrorMsg(error.message);
+    })
+     dispatch({
+       type: actionType.LOGIN,
+    });
   }
 
-  const handleSignup = (e) => {
+  const handleSignup = async(e) => {
     e.preventDefault();
-    auth.createUserWithEmailAndPassword(email, password).then((credentials) => {
+    const res = await auth.createUserWithEmailAndPassword(email, password).then((credentials) => {
       console.log(credentials);
       fs.collection("users").doc(credentials.user.uid).set({
         displayName: fullName,
@@ -49,7 +62,10 @@ const Signup = () => {
       }).catch((error) => { setErrorMsg(error.message) });
     }).catch((error) => {
       setErrorMsg(error.message);
-    })
+    });
+     dispatch({
+       type: actionType.LOGIN,
+    });
   };
 
   return (

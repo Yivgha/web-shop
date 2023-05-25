@@ -2,12 +2,11 @@ import React, {useState, useEffect} from "react";
 import Navbar from "../Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import { auth, fs } from "../../config";
-// import { useStateValue } from "../../context/StateProvider";
+
 
 
     
 const Home = () => {
-    //  const [ user] = useStateValue();
     const [currentUser, setCurrentUser] = useState(null);
    
      useEffect(() => {
@@ -29,7 +28,7 @@ const Home = () => {
 
     return (
         <div className="container-fluid">
-            <Navbar user={currentUser} />
+            <Navbar currentuser={currentUser} />
            
             <Outlet/>
         </div>

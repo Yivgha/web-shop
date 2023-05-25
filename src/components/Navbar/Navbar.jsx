@@ -3,14 +3,20 @@ import { Link,useNavigate} from "react-router-dom";
 import logo from "../../assets/logo64.png";
 import { GiShoppingCart } from "react-icons/gi";
 import { auth } from "../../config";
-
-const Navbar = ({user}) => {
+import { useStateValue } from "../../context/StateProvider";
+// import { initialState } from "../../context/initialState";
+// 
+const Navbar = ({currentuser}) => {
     const navigate = useNavigate();
+    const [ { user }, dispatch ] = useStateValue();
     
     const handleLogout = () => {
         console.log("logout");
         auth.signOut().then(() => {
             navigate("/login"); 
+            dispatch({
+                type: 'LOGOUT',
+            })
         })
     }
 
@@ -25,15 +31,15 @@ const Navbar = ({user}) => {
             <Link to="/cart">Shopping Cart</Link>
             </div>
             <div className="container nav-side-right">
-                {!user && <>
+                {!currentuser && <>
                 <Link to="/signup" >SIGN UP</Link>
                 <span className="slash">|</span>
                     <Link to="/login" >LOG IN</Link></>}
                 
-                {user && <>
+                {currentuser && <>
                     <div className="user-box">
                         <div  className="user-info"><Link to="/">
-                            <p className="user-text">Hello, {user}</p>
+                            <p className="user-text">Hello, {currentuser}</p>
                         </Link></div>
                         
                       <div className="cart-menu-btn">
