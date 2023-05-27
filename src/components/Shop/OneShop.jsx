@@ -1,21 +1,23 @@
 import React from 'react';
-// import { fs } from '../../config';
-// import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { firestore } from '../../config';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
 
 
-const OneShop = ({path }) => {
+const OneShop = ({path}) => {
     
-//      const query = fs.collection(path);
-//     const [docs, loading, error] = useCollectionData(query);
+     const query = collection(firestore, path);
+    const [docs, loading, error] = useCollectionData(query);
     
-//     const handleAddToCart = (e) => {
-//         e.preventDefault();
-// }
+
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+}
 
     return (
         <div className='container-fluid'>
             <ul className='shop-product-list'>
-                {/* {loading && <p className="shop-product-msg">Loading...</p>}
+                {loading && <p className="shop-product-msg">Loading...</p>}
                 {error && <p className="shop-product-msg">{error.message}</p>}
                 
                 {docs?.map((doc) => 
@@ -31,7 +33,7 @@ const OneShop = ({path }) => {
                           
                       </div>
                   </li>
-                )} */}
+                )}
             </ul>
         </div>
   )

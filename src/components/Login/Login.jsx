@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-// import jwtDecode from 'jwt-decode';
-
-import {signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth} from '../../config/firebaseConfig';
 import { useStateValue } from "../../context/StateProvider";
 import { actionType } from "../../context/reducer";
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
-// const { REACT_APP_CLIENT_ID } = process.env;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,6 +50,7 @@ const Login = () => {
         setErrorMsg(errorMessage);
         console.log(errorCode, errorMessage);
       });
+   localStorage.setItem("user", JSON.stringify(user));
   };
 
   

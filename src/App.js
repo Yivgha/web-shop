@@ -6,14 +6,17 @@ import Login from "./components/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import Shop from "./components/Shop/Shop";
 import Cart from "./components/Cart/Cart";
+import SelectedShop from "./components/Shop/SelectedShop";
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />}>
-      <Route path="/" element={<Shop /> } />
-        <Route path="/cart" element={<Cart />} />
+          <Route path="/" element={<Shop />}>
+            <Route path="/:id" element={<SelectedShop />} />
+            </Route>
+        <Route path="cart" element={<Cart />} />
         </Route>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/login" element={<Login />} />

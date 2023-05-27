@@ -1,0 +1,1 @@
+export { app, firestore, storage, auth } from "./firebaseConfig";

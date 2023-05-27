@@ -19,18 +19,21 @@ const navigate = useNavigate();
   
 
      const handleGoogleLogin = async () => {
-         const { user: {
-             // eslint-disable-next-line
-             refreshToken,
-             providerData } } = await signInWithPopup(auth, provider);
+       const { user: {
+         // eslint-disable-next-line
+         refreshToken,
+         providerData } } = await signInWithPopup(auth, provider);
          
          dispatch({
                      type: actionType.SET_USER,
                      user: providerData[0]
          });
+        
+       navigate("/");   
        
-         navigate("/");    
- }
+  }
+  localStorage.setItem("user", JSON.stringify(user));
+
 //   const userDoc = doc(firestore, "users", `${user.uid}`);
 //          setDoc( userDoc, user, { merge: true });
 //          getDoc(userDoc);

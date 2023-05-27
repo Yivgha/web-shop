@@ -16,30 +16,11 @@ const Home = () => {
         const user = auth.currentUser;
         // if (user !== undefined) {
         //     const userDoc = doc(firestore, "users", `${user.uid}`);
-        //      const docSnap = await getDoc(userDoc)
-        // if (docSnap.exists()) {
-        //     console.log(docSnap.data());
-        //     setCurrentUser(docSnap.data());
-        // } else {
-        //     console.log("No data");
-        // }
-        // } else {
-        //     setCurrentUser(user)
-        // }
-        setCurrentUser(user);
-        
-
-//         if (user !== userDoc) {
-//              getDoc(userDoc).then(snap => {
+        //      const docSnap = await getDoc(userDoc).then(snap => {
 //                 setCurrentUser(snap.data());
 //             });
-//         } else
-//             if (user === userDoc) {
-//          setCurrentUser(user)
-//         } else {
-// setCurrentUser('')
-//         }
-        // setCurrentUser(user)
+        //}
+        setCurrentUser(user);
         return user;       
 }
 
