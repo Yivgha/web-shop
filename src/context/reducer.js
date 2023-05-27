@@ -1,20 +1,19 @@
 export const actionType = {
-    LOGIN: "LOGIN",
     LOGOUT: "LOGOUT",
+    SET_USER: "LOGIN",
 }
 
 const reducer = (state, action) => {
     console.log(action);
 
     switch (action.type) {
-        case actionType.LOGIN:
-      return {
-        ...state,
-        isAuthenticated: true,
-          user: action.payload,
-         loading: false,
+       case actionType.SET_USER:
+            return {
+                ...state,
+                user: action.user,
+                isAuthenticated: true,
             };
-       
+        
         case actionType.LOGOUT:
       localStorage.clear();
       return {
@@ -23,6 +22,7 @@ const reducer = (state, action) => {
           user: null,
           loading: false,
       };
+      
         default:
             return state
     }

@@ -1,5 +1,9 @@
+import { fetchUser } from "../utils/fetchUserData";
+
+const userInfo = fetchUser();
+
 export const initialState = {
-    user: null,
+    user: userInfo,
     isAuthenticated: false,
     loading: false,
 }

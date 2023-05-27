@@ -1,27 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import { fs } from '../../config';
+// import { fs } from '../../config';
 import ShopsList from './ShopsList';
-import OneShop from './OneShop';
-import { useCollectionData } from "react-firebase-hooks/firestore";
+// import OneShop from './OneShop';
+// import { useCollectionData } from "react-firebase-hooks/firestore";
 // import ChildrenList from './ChildrenList';
 
 const Shop = () => {
 
-  const shopsQ = fs.collection("shops");
+  // const shopsQ = fs.collection("shops");
   const [shops, setShops] = useState([]); 
-  const [markets, loading, error] = useCollectionData(shopsQ);
+  // const [markets, loading, error] = useCollectionData(shopsQ);
   
 
   const getShops = async () => {
-    const shops = await fs.collection("shops").get();
-    const shopsArray = [];
-    for (let snap of shops.docs) {
-      const data = snap.data();
-      shopsArray.push({ ...data });
-      if (shopsArray.length === shops.docs.length) {
-        setShops(shopsArray)
-      }
-    }
+    // const shops = await fs.collection("shops").get();
+    // const shopsArray = [];
+    // for (let snap of shops.docs) {
+    //   const data = snap.data();
+    //   shopsArray.push({ ...data });
+    //   if (shopsArray.length === shops.docs.length) {
+    //     setShops(shopsArray)
+    //   }
+    // }
   }
 
   useEffect(() => {
@@ -45,13 +45,13 @@ const Shop = () => {
 
       <div className='right-side'>
         <h3 className='right-side-title'>Products:</h3>
-        {loading && <p>Loading...</p>}
+        {/* {loading && <p>Loading...</p>}
         {error && <p>{error.message}</p>}
 
           {markets?.map((market) => (
             <OneShop key={Math.random()}
               path={`shops/${market.name}/children`}  />
-          ))}
+          ))} */}
      
       </div>
     </div>

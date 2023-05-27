@@ -1,70 +1,58 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import { auth} from '../../config';
-import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useStateValue } from '../../context/StateProvider';
-import { actionType } from '../../context/reducer';
 // import jwtDecode from 'jwt-decode';
 
+import {signInWithEmailAndPassword } from 'firebase/auth';
+import { auth} from '../../config/firebaseConfig';
+import { useStateValue } from "../../context/StateProvider";
+import { actionType } from "../../context/reducer";
+import GoogleBtn from '../GoogleBtn/GoogleBtn';
 // const { REACT_APP_CLIENT_ID } = process.env;
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const [
+    // eslint-disable-next-line
+    { user },
+    dispatch] = useStateValue();
+  
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  
-
-
-    const provider = new GoogleAuthProvider();
-    const [user, dispatch] = useStateValue();
-
-  const login = async () => {
-    const res = await auth.signInWithPopup(provider).then(() => {
-      setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
-      setEmail("");
-      setPassword("");
-      setErrorMsg("");
-    
-      navigate("/");
-      setSuccessMsg("");
-    }).catch((error) => { setErrorMsg(error.message) });
-  
-     dispatch(
-      {
-         type: actionType.LOGIN,
-       user: res
-      }
-    );
-  }
 
  
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-   
-    const res = await auth.signInWithEmailAndPassword(email, password).then(() => {
-      setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
-      setEmail("");
-      setPassword("");
-      setErrorMsg("");
 
-      setTimeout(() => {
-        setSuccessMsg("");
-        navigate("/")
-      }, 3000);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
+        setEmail("");
+        setPassword("");
+        setErrorMsg("");
     
-    }).catch((error) => { setErrorMsg(error.message) });
-    
-   dispatch({
-     type: actionType.LOGIN,
-   });
-    
+        dispatch({
+          type: actionType.SET_USER,
+          user: cred.user
+        });
+
+        setTimeout(() => {
+          setSuccessMsg("");
+          navigate("/")
+        }, 2000);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMsg(errorMessage);
+        console.log(errorCode, errorMessage);
+      });
   };
 
   
@@ -75,7 +63,8 @@ const Login = () => {
       <hr></hr>
       {successMsg && <><div className="success-msg">{successMsg}</div></>}
 <form className='form-group' autoComplete="off"
-              onSubmit={handleLogin}>
+        onSubmit={handleLogin}
+      >
               <label className='login-label'>Email</label>
               <input type="email" className='form-control login-input' required
                   onChange={(e) => setEmail(e.target.value)} value={email} placeholder='Set email'></input>
@@ -87,13 +76,11 @@ const Login = () => {
               <div className='btn-box login-btn-box'>
                   <span className='login-bottom-text'>Don't have an accont? Sign in 
             <Link to="/signup" className='link'> HERE </Link>
-            or login with 
-            <button className='btn btn-primary btn-md' onClick={login}> Google</button>
           </span>
-  
-                  <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
+  <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
               </div>
       </form>
+      <GoogleBtn />
        {errorMsg && <><div className="error-msg">{errorMsg}</div></>}
           <Outlet />
     </div>

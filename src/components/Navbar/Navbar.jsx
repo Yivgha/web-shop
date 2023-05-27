@@ -2,22 +2,30 @@ import React from "react";
 import { Link,useNavigate} from "react-router-dom";
 import logo from "../../assets/logo64.png";
 import { GiShoppingCart } from "react-icons/gi";
-import { auth } from "../../config";
+import { auth } from "../../config/firebaseConfig";
+import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
-// import { initialState } from "../../context/initialState";
-// 
-const Navbar = ({currentuser}) => {
+import { initialState } from "../../context/initialState";
+import { actionType } from "../../context/reducer";
+
+const Navbar = ({ currentuser }) => {
+   
+  const [
+    // eslint-disable-next-line
+    { user },
+    dispatch] = useStateValue();
     const navigate = useNavigate();
-    const [ { user }, dispatch ] = useStateValue();
     
     const handleLogout = () => {
-        auth.signOut().then(() => {
+        signOut(auth).then(() => {
+             dispatch({
+                 type: actionType.LOGOUT,
+                 user: initialState.user,
+    });
             navigate("/login"); 
-            dispatch({
-                type: 'LOGOUT',
-            })
         })
     }
+//FIX USERNAME from DB!!!
 
     return (
         <div className="container-fluid flex-nav">
@@ -37,8 +45,9 @@ const Navbar = ({currentuser}) => {
                 
                 {currentuser && <>
                     <div className="user-box">
-                        <div  className="user-info"><Link to="/">
-                            <p className="user-text">Hello, {currentuser}</p>
+                        <div className="user-info"><Link to="/">
+                           
+                            <p className="user-text">Hello, {currentuser.displayName === null ? "Username" :currentuser.displayName}</p>
                         </Link></div>
                         
                       <div className="cart-menu-btn">
