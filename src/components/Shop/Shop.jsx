@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { firestore } from '../../config';
-import ShopsList from './ShopsList';
 import OneShop from './OneShop';
+// import SelectedShop from './SelectedShop';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection,  getDocs } from 'firebase/firestore';
 import { Link, Outlet } from 'react-router-dom';
 
-const Shop = ({selectedShop}) => {
+const Shop = () => {
 
   const shopsQ = collection(firestore, "shops");
   const [shops, setShops] = useState([]); 
   const [loading, error] = useCollectionData(shopsQ);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
+  const [selectedShop, setSelectedShop] = useState("");
+  const [shopBtnClicked, setShopBtnClicked] = useState(false);
+
+console.log("clicked:", selectedShop);
 
   const getShops = async () => {
     const shopsRef =  collection(firestore, "shops");
@@ -26,32 +30,50 @@ const Shop = ({selectedShop}) => {
     });
   }
 
-  
-
   useEffect(() => {
     getShops();
      // eslint-disable-next-line
   }, []);
 
-  const handleAll = (e) => {
-    e.preventDefault();
-    setShowAll(true);
-    if (showAll === true) {
-      setShowAll(false)
+  const handleAll = () => {
+    setShowAll(false);
+    setShopBtnClicked(false);
+    if (showAll === false) {
+      setShowAll(true);
+      setShopBtnClicked(false);
     };
 }
  
   return (
     <div className='container-fluid shop-container'>     
       <div className='left-side'>
+
+        {shops.length < 1 && (<><p>Please wait...</p></>)}
+
         {shops.length > 0 && (<>
           <h2 className='shop-title'>Shops:</h2>
-          <ShopsList shops={shops} path={`shops/${shops.name}/children`} setShops={setShops} />
+          {shops.length > 0 && (
+            shops?.map((el) => (
+              <div className='shop-list-item' key={Math.random()} value={el.name}>
+                <Link to={`${el.name}`} className='shop-item-name' >
+                  <button type="button" className="btn btn-success" onClick={() => {
+                    setSelectedShop(el.name);
+                    setShowAll(false);
+                    setShopBtnClicked(true);
+                  }} >
+            <p className='shop-btn-text'> {el.name}</p>
+              </button>
+              </Link>
+              </div>
+            )))}
         </>)}
-        {shops.length < 1 && (<><p>Please wait...</p></>)}
+
+       
+ <Link to="/shop">
          <button type="button" onClick={handleAll} className="btn btn-primary" style={{margin: "20px 0"}}>
           {showAll === true ? "Hide All" : "Show All"}
-        </button>
+          </button>
+          </Link>
       </div>
 
 
@@ -64,7 +86,15 @@ const Shop = ({selectedShop}) => {
               path={`shops/${market.name}/children`}  />
           ))}
         
-        {selectedShop !== ("" || undefined) && <Link href={`/${selectedShop}`}></Link>}
+        {/* {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
+           <SelectedShop key={Math.random()}
+              path={`shops/${item.name}/children`}  />
+        ))} */}
+        
+         {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
+           <OneShop key={Math.random()} selectedShop={selectedShop}
+             path={`shops/${item.name}/children`} />
+          ))}
 
       <Outlet />
       </div>

@@ -30,12 +30,16 @@ const Navbar = ({ currentuser }) => {
     return (
         <div className="container-fluid flex-nav">
             <div className="container nav-side-left">
-                <Link to="/">
+                <Link to="/shop">
                     <img src={logo} alt="main logo" className="main-logo" />
                     </Link>
-            <Link to="/">Shop</Link>
+            <Link to="/shop">Shop</Link>
             <span className="slash">|</span>
-            <Link to="/cart">Shopping Cart</Link>
+                <Link to="/cart">Shopping Cart</Link>
+                <span className="slash">|</span>
+                <Link to="/about">About</Link>
+                <span className="slash">|</span>
+                <Link to="/products">Products</Link>
             </div>
             <div className="container nav-side-right">
                 {!currentuser && <>
@@ -45,7 +49,7 @@ const Navbar = ({ currentuser }) => {
                 
                 {currentuser && <>
                     <div className="user-box">
-                        <div className="user-info"><Link to="/">
+                        <div className="user-info"><Link to="/shop">
                            
                             <p className="user-text">Hello, {currentuser.displayName === null ? "Username" :currentuser.displayName}</p>
                         </Link></div>

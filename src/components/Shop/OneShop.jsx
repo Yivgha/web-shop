@@ -8,12 +8,11 @@ const OneShop = ({path}) => {
     
      const query = collection(firestore, path);
     const [docs, loading, error] = useCollectionData(query);
-    
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-}
-
+    }
+   
     return (
         <div className='container-fluid'>
             <ul className='shop-product-list'>
