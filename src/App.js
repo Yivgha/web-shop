@@ -14,10 +14,12 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route  path="/" element={<Home />}>
+        <Route path="/" element={<Home />}>
+          
           <Route exact path="shop" element={<Shop />}>
             <Route path="/shop/:id" element={<SelectedShop />} />
-            </Route>
+          </Route>
+          
           <Route path="cart" element={<Cart />} />
 
          

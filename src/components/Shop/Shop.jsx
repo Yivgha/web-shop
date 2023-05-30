@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { firestore } from '../../config';
 import OneShop from './OneShop';
-// import SelectedShop from './SelectedShop';
+import SelectedShop from './SelectedShop';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection,  getDocs } from 'firebase/firestore';
 import { Link, Outlet } from 'react-router-dom';
@@ -86,16 +86,10 @@ console.log("clicked:", selectedShop);
               path={`shops/${market.name}/children`}  />
           ))}
         
-        {/* {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
-           <SelectedShop key={Math.random()}
-              path={`shops/${item.name}/children`}  />
-        ))} */}
+        {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
+           <SelectedShop key={Math.random()} selectedShop={selectedShop} />
+        ))}
         
-         {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
-           <OneShop key={Math.random()} selectedShop={selectedShop}
-             path={`shops/${item.name}/children`} />
-          ))}
-
       <Outlet />
       </div>
       

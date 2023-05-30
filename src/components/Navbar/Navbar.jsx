@@ -37,8 +37,7 @@ const Navbar = ({ currentuser }) => {
             <span className="slash">|</span>
                 <Link to="/cart">Shopping Cart</Link>
                 <span className="slash">|</span>
-                <Link to="/about">About</Link>
-                <span className="slash">|</span>
+               
                 <Link to="/products">Products</Link>
             </div>
             <div className="container nav-side-right">

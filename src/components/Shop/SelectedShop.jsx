@@ -1,27 +1,26 @@
 import React from 'react';
-// import { firestore } from '../../config';
-// import { useCollectionData } from 'react-firebase-hooks/firestore';
-// import { collection } from 'firebase/firestore';
+import { firestore } from '../../config';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
 
-const SelectedShop = ({ path, selectedShop }) => {
-
-  // const query = collection(firestore, path);
-  //   const [docs, loading, error] = useCollectionData(query);
+const SelectedShop = ({ selectedShop }) => {
 
 
+  const oneSQ = collection(firestore, `shops/${selectedShop}/children`);
+  const [docs, loading, error] = useCollectionData(oneSQ)
 
-    // const handleAddToCart = (e) => {
-    //     e.preventDefault();
-    // }
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+    }
 
   return (
-    <div>
-      THIS IS A SELECTED SHOP: "{selectedShop}"
-
-        {/* <div className='container-fluid'>
+   <div className='container-fluid'>
+   
+{loading && <p className="shop-product-msg">Loading...</p>}
+ {error && <p className="shop-product-msg">{error.message}</p>}
+      
             <ul className='shop-product-list'>
-                {loading && <p className="shop-product-msg">Loading...</p>}
-                {error && <p className="shop-product-msg">{error.message}</p>}
+                
                 
                 {docs?.map((doc) => 
                   <li key={Math.random()}>
@@ -38,7 +37,7 @@ const SelectedShop = ({ path, selectedShop }) => {
                   </li>
                 )}
             </ul>
-        </div> */}
+  
       </div>
   )
 }
