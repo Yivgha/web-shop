@@ -36,9 +36,7 @@ const Navbar = ({ currentuser }) => {
             <Link to="/shop">Shop</Link>
             <span className="slash">|</span>
                 <Link to="/cart">Shopping Cart</Link>
-                <span className="slash">|</span>
-               
-                <Link to="/products">Products</Link>
+
             </div>
             <div className="container nav-side-right">
                 {!currentuser && <>
@@ -48,10 +46,9 @@ const Navbar = ({ currentuser }) => {
                 
                 {currentuser && <>
                     <div className="user-box">
-                        <div className="user-info"><Link to="/shop">
-                           
-                            <p className="user-text">Hello, {currentuser.displayName === null ? "Username" :currentuser.displayName}</p>
-                        </Link></div>
+                        <div className="user-info">
+                            <p className="user-text">Hello, {currentuser.displayName === null ? currentuser.email : currentuser.displayName}</p>
+                        </div>
                         
                       <div className="cart-menu-btn">
                             <Link to="/cart">

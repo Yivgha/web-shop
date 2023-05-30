@@ -1,49 +1,65 @@
 .cart-container{
-   padding: 20px;
+    padding-top: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
+    column-gap: 30px;
+    height: 100%;
 }
 
-.cart-left, .cart-right{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    width: 100%;
-    padding: 10px;
-}
 .cart-left{
-border: 1px solid var(--black-border-color);
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--black-border-color);
+    padding: 20px;
+    height: 85vh;
+    overflow-y: scroll;
+} 
+.cart-right{
+  border: 3px solid var(--black-border-color);
+    padding: 20px;
+    height: 85vh;
+    overflow-y: scroll;
+ padding: 20px;
+ display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
- .cart-right{
-    padding-top: 0;
- }
+
+
 .cart-map{
-    width: 80%;
-    height: 60px;
+    width: 95%;
+    height: 300px;
     border: 1px solid var(--black-border-color);
-    margin-bottom: 10px;
+    margin-bottom: 50px;
 }
+
+//FORM
 .form-group{
     width: 80%;
 }
 .cart-label{
-    font-size: 15px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 .cart-input{
     width: 100%;
+    height: 40px;
+    font-size: 20px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    &:last-child{
+        margin-bottom: 0;
+    }
 }
 
+//PRODUCT
 .cart-products{
     border: 1px solid var(--black-border-color);
     width: 100%;
-    height: 300px;
-    margin-bottom: 20px;
+    height: 650px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,6 +70,7 @@ border: 1px solid var(--black-border-color);
     display: grid;
     grid-template-columns: 2fr 1fr;
     column-gap: 40px;
+    margin-bottom: 50px;
 }
 
 .total-price{
@@ -61,11 +78,14 @@ border: 1px solid var(--black-border-color);
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 10px;
+    font-size: 25px;
 }
 
 .cart-submit{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .captcha{
      border: 1px solid var(--black-border-color);
@@ -77,4 +97,6 @@ border: 1px solid var(--black-border-color);
 }
 .cart-btn{
     margin-top: 40px;
+    width: 150px;
+    height: 50px;
 }

@@ -1,6 +1,8 @@
 export const actionType = {
     LOGOUT: "LOGOUT",
     SET_USER: "LOGIN",
+     SET_CART_SHOW: "SET_CART_SHOW",
+  SET_CARTITEMS: "SET_CARTITEMS",
 }
 
 const reducer = (state, action) => {
@@ -22,6 +24,18 @@ const reducer = (state, action) => {
         isAuthenticated: false,
           user: null,
           loading: false,
+            };
+        
+         case actionType.SET_CART_SHOW:
+      return {
+        ...state,
+        cartShow: action.cartShow,
+      };
+
+    case actionType.SET_CARTITEMS:
+      return {
+        ...state,
+        cartItems: action.cartItems,
       };
       
         default:

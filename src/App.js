@@ -5,10 +5,8 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import Shop from "./pages/Shop";
-import Cart from "./components/Cart/Cart";
+import Cart from "./pages/Cart";
 import SelectedShop from "./components/Shop/SelectedShop";
-import { Products } from "./pages/Products";
-import { ProductDetails } from "./pages/ProductDetails";
 
 export const App = () => {
   return (
@@ -20,11 +18,9 @@ export const App = () => {
             <Route path="/shop/:id" element={<SelectedShop />} />
           </Route>
           
-          <Route path="cart" element={<Cart />} />
-
-         
-          <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="cart" element={<Cart />}>
+            <Route path="/cart/:id"/>
+          </Route>
           
         </Route>
         <Route path="/signup" element={<Signup />}/>

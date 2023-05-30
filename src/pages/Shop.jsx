@@ -15,7 +15,7 @@ const Shop = () => {
   const [selectedShop, setSelectedShop] = useState("");
   const [shopBtnClicked, setShopBtnClicked] = useState(false);
 
-console.log("clicked:", selectedShop);
+// console.log("clicked:", selectedShop);
 
   const getShops = async () => {
     const shopsRef =  collection(firestore, "shops");
