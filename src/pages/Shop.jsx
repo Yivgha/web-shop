@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { firestore } from '../../config';
-import OneShop from './OneShop';
-import SelectedShop from './SelectedShop';
+import { firestore } from '../config';
+import OneShop from '../components/Shop/OneShop';
+import SelectedShop from '../components/Shop/SelectedShop';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection,  getDocs } from 'firebase/firestore';
 import { Link, Outlet } from 'react-router-dom';

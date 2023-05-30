@@ -29,7 +29,7 @@ const navigate = useNavigate();
                      user: providerData[0]
          });
         
-       navigate("/");   
+       navigate("/shop");   
        
   }
   localStorage.setItem("user", JSON.stringify(user));

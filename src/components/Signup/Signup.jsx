@@ -46,7 +46,7 @@ getDoc(usersRef);
           setErrorMsg("");
           setTimeout(() => {
             setSuccessMsg("");
-            navigate("/")
+            navigate("/shop")
           }, 2000);
         }).catch((error) => {
           setErrorMsg(error.message)

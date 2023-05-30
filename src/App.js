@@ -4,7 +4,7 @@ import Home  from "./components/Home/Home";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
-import Shop from "./components/Shop/Shop";
+import Shop from "./pages/Shop";
 import Cart from "./components/Cart/Cart";
 import SelectedShop from "./components/Shop/SelectedShop";
 import { Products } from "./pages/Products";
