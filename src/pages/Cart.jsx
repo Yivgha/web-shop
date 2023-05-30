@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import CartProduct from '../components/Cart/CartProduct';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Cart = () => {
 
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
-  const [cartName, setCartName] = useState("");
+    const [cartName, setCartName] = useState("");
+    const captchaRef = useRef(null);
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +17,8 @@ const Cart = () => {
       setCartEmail("");
       setCartPhone("");
       setCartName("");
+      captchaRef.current.getValue();
+        captchaRef.current.reset();
   }
 
 
@@ -51,7 +55,11 @@ const Cart = () => {
             <div className='total-price'>Total Price: 0</div>
                   
           <div className='cart-submit'>
-            <div className='captcha'>CAPTCHA</div>
+                      <div className='captcha'>
+                          <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+                          
+                      </div>
+                      
                       <button type="submit" className="btn btn-primary cart-btn" onClick={handleCartSubmit}>Submit</button>
           </div>
         </div>
