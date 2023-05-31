@@ -87,7 +87,7 @@ const Shop = () => {
           ))}
         
         {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
-          <SelectedShop key={Math.random()} selectedShop={selectedShop} />
+          <SelectedShop key={item.id} selectedShop={selectedShop} />
         ))}
         
       <Outlet />

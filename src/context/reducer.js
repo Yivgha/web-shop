@@ -7,8 +7,8 @@ export const initialState = {
     user: null,
     isAuthenticated: false,
     loading: false,
-    cart: null,
-    total: null,
+    cart: [],
+    total: 0,
 }
 
 export const actionType = {

@@ -1,6 +1,9 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, {
+  useState, useRef
+  // , useEffect
+} from 'react';
 // import CartProduct from '../components/Cart/CartProduct';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
@@ -8,27 +11,28 @@ import { useStateValue } from "../context/StateProvider";
 
 // let cartItems = [];
 
-const Cart = ({ price }) => {
+const Cart = () => {
 
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
     const [cartName, setCartName] = useState("");
-    const captchaRef = useRef(null);
+    // const captchaRef = useRef(null);
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
     console.log(cartAddress, cartEmail, cartName, cartPhone);
     dispatch({
             type: actionType.SET_CART,
-            cart: cart
+      cart: cart, 
+            total: total
         })
       setCartAddress("");
       setCartEmail("");
       setCartPhone("");
       setCartName("");
-      captchaRef.current.getValue();
-        captchaRef.current.reset();
+      // captchaRef.current.getValue();
+      //   captchaRef.current.reset();
   }
 
      const [counter, setCounter] = useState(1);
@@ -36,43 +40,49 @@ const Cart = ({ price }) => {
     // const [itemPrice, setItemPrice] = useState(parseInt(counter) * parseFloat(price));
   const [totalPrice, setTotalPrice] = useState(0);
 
-    const [{ cart }, dispatch] = useStateValue();
+    const [{ cart, total }, dispatch] = useStateValue();
 
-    useEffect(() => {
-        // setItemPrice(parseInt(counter) * parseFloat(price));
-      // handleTotalPrice()
-        // eslint-disable-next-line
-    }, [counter]);
-    
-//   const handleTotalPrice = () => {
-//     if (cart.length > 0) {
-//       let calcTotalPrice = cart.reduce(function (accumulator, item) {
-//       return accumulator + (item.counter * item.price)
-//     }, 0);
-//     setTotalPrice(calcTotalPrice);
-//     }    
-// }
+
+    // useEffect(() => {
+    //     // setItemPrice(parseInt(counter) * parseFloat(itemPrice));
+    //   // handleTotalPrice()
+    //     // eslint-disable-next-line
+    // }, [counter]);
+
+  const handleTotalPrice = () => {
+
+    //  parseFloat(cartItem.price.replace('$', '')
+    if (cart.length > 0) {
+      let calcTotalPrice = cart.reduce(function (accumulator, item) {
+        console.log(item.counter);
+        return accumulator + (parseInt(item.counter) * parseFloat(item.price))
+      }, 0);
+
+      setTotalPrice(calcTotalPrice);
+      dispatch({ type: actionType.SET_TOTAL, total: totalPrice });
+    }
+  }
 
     
     const handleIncrement = () => {
       setCounter((prevCounter) => prevCounter + 1);
-      // handleTotalPrice();
+      handleTotalPrice();
     };
 
     const handleDecrement = () => {
         setCounter((prevCounter) => prevCounter - 1);
-        if (counter === 0) {
-            setCounter(0);
+        if (counter === 1) {
+          setCounter(1);
       }
       // handleTotalPrice();
     };
 
 function handleInputChange(e) {
-    setCounter(parseInt(inputRef.current.value));
-    if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
-        setCounter(0);
-  }
-  // handleTotalPrice();
+  //   setCounter(parseInt(inputRef.current.value));
+  //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
+  //       setCounter(1);
+  // }
+  handleTotalPrice();
     };
 
   return (
@@ -109,25 +119,32 @@ function handleInputChange(e) {
           
           {cart?.length > 0 && (
             cart.map(cartItem => (
-              <div className='cart-product-container' id={cartItem.id}>
+              <div className='cart-product-container' id={Math.random()} key={Math.random()} counter={counter}>
           <div className='cart-img-block'>
               <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
           </div>
           <div className='cart-description-block'>
               <div className='cart-description-info'>
                   <p>Name: {cartItem.name}</p>
-                  <p>Price: {cartItem.price}</p>
+                    <p>Price: {parseFloat(cartItem.price) * parseInt(counter)}</p>
                   </div>
                   
                   
               <div className='cart-counter'>
-                  <input className="counter-input" ref={inputRef} value={counter} onChange={handleInputChange} />
+                    <input className="counter-input" ref={inputRef} value={counter} onChange={handleInputChange} />
 
                   <div className='cart-counter-btns'>
                       <button type="button" onClick={handleIncrement} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiPlus className='cart-counter-icon' size={20}/>
                   </button>
-                      <button type="button" onClick={handleDecrement} className='btn btn-outline-secondary btn-number cart-counter-btn'>
+                      <button type="button" onClick={() => {
+                        handleDecrement();
+      //                   if (counter === 0) {
+      //                     setCounter(0);
+      //                     cart.pop(cartItem.id);
+      //                     dispatch({type: actionType.SET_CART, cart: cart})
+      // }
+                      }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiOutlineMinus className='cart-counter-icon' />
                       </button>
                       </div>
@@ -147,7 +164,7 @@ function handleInputChange(e) {
                   
           <div className='cart-submit'>
                       <div className='captcha'>
-                          <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+                          {/* <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} /> */}
                           
                       </div>
                       

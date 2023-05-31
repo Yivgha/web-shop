@@ -61,21 +61,12 @@ console.log(cart);
                         // onClick={handleAddToCart}
                         onClick={(e) => {
                           e.preventDefault();
-                            const productExist = myCart.find(item => item.id === doc.id);
-    if (productExist) {
-       setMyCart(
-        myCart.map(item =>
-          item.id === doc.id
-            ? { ...productExist, count: productExist.count + 1 }
-            : item
-        )
-      );
-    } else {
-      setMyCart([...myCart, { ...doc, count: 1 }]);
-    };
-    dispatch({type: actionType.SET_CART, cart: myCart });
-                        }
-                      }
+                          const productExist = myCart.find(item => item.id === doc.id);
+                          if (productExist) {
+                            setMyCart({ ...productExist, count: productExist.count + 1 });
+                          } else { setMyCart([...myCart, { ...doc, count: 1 }]); };
+                          dispatch({ type: actionType.SET_CART, cart: [...cart, ...myCart] });
+}}
                       >Add to Cart</button>
                           
                       </div>
