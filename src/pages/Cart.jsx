@@ -1,8 +1,14 @@
-import React, { useState, useRef} from 'react';
-import CartProduct from '../components/Cart/CartProduct';
+import React, { useState, useRef, useEffect} from 'react';
+// import CartProduct from '../components/Cart/CartProduct';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { HiPlus, HiOutlineMinus } from "react-icons/hi";
+import { actionType } from '../context/reducer';
+import { useStateValue } from "../context/StateProvider";
 
-const Cart = () => {
+
+// let cartItems = [];
+
+const Cart = ({ price }) => {
 
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
@@ -12,7 +18,11 @@ const Cart = () => {
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
-      console.log(cartAddress, cartEmail, cartName, cartPhone);
+    console.log(cartAddress, cartEmail, cartName, cartPhone);
+    dispatch({
+            type: actionType.SET_CART,
+            cart: cart
+        })
       setCartAddress("");
       setCartEmail("");
       setCartPhone("");
@@ -21,6 +31,49 @@ const Cart = () => {
         captchaRef.current.reset();
   }
 
+     const [counter, setCounter] = useState(1);
+     const inputRef = useRef(counter);
+    // const [itemPrice, setItemPrice] = useState(parseInt(counter) * parseFloat(price));
+  const [totalPrice, setTotalPrice] = useState(0);
+
+    const [{ cart }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        // setItemPrice(parseInt(counter) * parseFloat(price));
+      // handleTotalPrice()
+        // eslint-disable-next-line
+    }, [counter]);
+    
+//   const handleTotalPrice = () => {
+//     if (cart.length > 0) {
+//       let calcTotalPrice = cart.reduce(function (accumulator, item) {
+//       return accumulator + (item.counter * item.price)
+//     }, 0);
+//     setTotalPrice(calcTotalPrice);
+//     }    
+// }
+
+    
+    const handleIncrement = () => {
+      setCounter((prevCounter) => prevCounter + 1);
+      // handleTotalPrice();
+    };
+
+    const handleDecrement = () => {
+        setCounter((prevCounter) => prevCounter - 1);
+        if (counter === 0) {
+            setCounter(0);
+      }
+      // handleTotalPrice();
+    };
+
+function handleInputChange(e) {
+    setCounter(parseInt(inputRef.current.value));
+    if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
+        setCounter(0);
+  }
+  // handleTotalPrice();
+    };
 
   return (
     <div className='container-fluid cart-container'>
@@ -47,12 +100,50 @@ const Cart = () => {
         </form>
       </div>
       <div className="cart-right">
-        <div className='cart-products'>
+        {/* <div className='cart-products'>
           <CartProduct />
+        </div> */}
+
+        <div className='cart-products'>
+          {!cart && (<><p>Please wait...</p></>)}
+          
+          {cart?.length > 0 && (
+            cart.map(cartItem => (
+              <div className='cart-product-container' id={cartItem.id}>
+          <div className='cart-img-block'>
+              <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
+          </div>
+          <div className='cart-description-block'>
+              <div className='cart-description-info'>
+                  <p>Name: {cartItem.name}</p>
+                  <p>Price: {cartItem.price}</p>
+                  </div>
+                  
+                  
+              <div className='cart-counter'>
+                  <input className="counter-input" ref={inputRef} value={counter} onChange={handleInputChange} />
+
+                  <div className='cart-counter-btns'>
+                      <button type="button" onClick={handleIncrement} className='btn btn-outline-secondary btn-number cart-counter-btn'>
+                          <HiPlus className='cart-counter-icon' size={20}/>
+                  </button>
+                      <button type="button" onClick={handleDecrement} className='btn btn-outline-secondary btn-number cart-counter-btn'>
+                          <HiOutlineMinus className='cart-counter-icon' />
+                      </button>
+                      </div>
+              </div>
+          </div>
+      </div>
+            ))
+          )}
+          
         </div>
+
+
+
               
         <div className='cart-sum'>
-            <div className='total-price'>Total Price: 0</div>
+          <div className='total-price'>Total Price: {totalPrice}</div>
                   
           <div className='cart-submit'>
                       <div className='captcha'>

@@ -15,7 +15,7 @@ const Shop = () => {
   const [selectedShop, setSelectedShop] = useState("");
   const [shopBtnClicked, setShopBtnClicked] = useState(false);
 
-// console.log("clicked:", selectedShop);
+
 
   const getShops = async () => {
     const shopsRef =  collection(firestore, "shops");
@@ -87,7 +87,7 @@ const Shop = () => {
           ))}
         
         {showAll === false && shopBtnClicked === true && shops?.filter((market) => market.id === selectedShop).map(item => (
-           <SelectedShop key={Math.random()} selectedShop={selectedShop} />
+          <SelectedShop key={Math.random()} selectedShop={selectedShop} />
         ))}
         
       <Outlet />

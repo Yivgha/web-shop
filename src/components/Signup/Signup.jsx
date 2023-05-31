@@ -26,8 +26,6 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
-      dispatch({ type: actionType.SET_USER, user: credentials.user });
-
       const uid = credentials.user.uid;
       const data = {
         uid: uid,
@@ -35,6 +33,7 @@ const Signup = () => {
         email: email,
         password: password
       };
+      dispatch({ type: actionType.SET_USER, user: data });
     const usersRef = doc(firestore, "users", `${uid}`);
     setDoc(usersRef, data).catch((err) => console.log(err.message));
 getDoc(usersRef);

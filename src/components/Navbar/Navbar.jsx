@@ -7,7 +7,7 @@ import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
 import { actionType, initialState } from "../../context/reducer";
 
-const Navbar = ({ currentuser }) => {
+const Navbar = () => {
   
   const [
     // eslint-disable-next-line
@@ -38,15 +38,15 @@ const Navbar = ({ currentuser }) => {
 
             </div>
             <div className="container nav-side-right">
-                {!currentuser && <>
+                {!user && <>
                 <Link to="/signup" >SIGN UP</Link>
                 <span className="slash">|</span>
                     <Link to="/login" >LOG IN</Link></>}
                 
-                {currentuser && <>
+                {user && <>
                     <div className="user-box">
                         <div className="user-info">
-                            <p className="user-text">Hello, {currentuser.displayName === null ? currentuser.email : currentuser.displayName}</p>
+                            <p className="user-text">Hello, {user.displayName === null ? user.email : user.displayName}</p>
                         </div>
                         
                         <div className="cart-menu-btn">
@@ -54,7 +54,7 @@ const Navbar = ({ currentuser }) => {
                                 < GiShoppingCart size={30} />
                             </Link>
                             <div className={`${!cart ? "noCartItem" : "cart-indicator"}`}>
-                            <p>{cart ? cart.length : ""}</p>
+                                {cart ? cart?.length : ""}
                             </div>
                         </div>
                         
