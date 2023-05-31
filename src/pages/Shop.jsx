@@ -71,7 +71,7 @@ const Shop = () => {
        
  <Link to="/shop">
          <button type="button" onClick={handleAll} className="btn btn-primary" style={{margin: "20px 0"}}>
-          {showAll === true ? "Hide All" : "Show All"}
+          {showAll === true ? "Hide all products" : "Show all products"}
           </button>
           </Link>
       </div>

@@ -1,8 +1,20 @@
+import { fetchUser } from "../utils/fetchUserData";
+
+const userInfo = fetchUser();
+
+export const initialState = {
+    user: userInfo,
+    isAuthenticated: false,
+    loading: false,
+    cart: null,
+    total: null,
+}
+
 export const actionType = {
     LOGOUT: "LOGOUT",
     SET_USER: "LOGIN",
-     SET_CART_SHOW: "SET_CART_SHOW",
-  SET_CARTITEMS: "SET_CARTITEMS",
+    SET_CART: "SET_CART",
+    SET_TOTAL: "SET_TOTAL",
 }
 
 const reducer = (state, action) => {
@@ -26,17 +38,17 @@ const reducer = (state, action) => {
           loading: false,
             };
         
-         case actionType.SET_CART_SHOW:
+       case actionType.SET_CART:
       return {
         ...state,
-        cartShow: action.cartShow,
+        cart: action.cart,
       };
 
-    case actionType.SET_CARTITEMS:
+    case actionType.SET_TOTAL:
       return {
         ...state,
-        cartItems: action.cartItems,
-      };
+        total: action.total,
+        };
       
         default:
             return state

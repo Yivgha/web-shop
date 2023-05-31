@@ -5,14 +5,13 @@ import { GiShoppingCart } from "react-icons/gi";
 import { auth } from "../../config/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
-import { initialState } from "../../context/initialState";
-import { actionType } from "../../context/reducer";
+import { actionType, initialState } from "../../context/reducer";
 
 const Navbar = ({ currentuser }) => {
-   
+  
   const [
     // eslint-disable-next-line
-    { user },
+    { user, cart },
     dispatch] = useStateValue();
     const navigate = useNavigate();
     
@@ -50,15 +49,15 @@ const Navbar = ({ currentuser }) => {
                             <p className="user-text">Hello, {currentuser.displayName === null ? currentuser.email : currentuser.displayName}</p>
                         </div>
                         
-                      <div className="cart-menu-btn">
+                        <div className="cart-menu-btn">
                             <Link to="/cart">
                                 < GiShoppingCart size={30} />
                             </Link>
-                            <span className="cart-indicator">
-                                1
-                                {/* {totalQty} */}
-                            </span>
+                            <div className={`${!cart ? "noCartItem" : "cart-indicator"}`}>
+                            <p>{cart ? cart.length : ""}</p>
+                            </div>
                         </div>
+                        
                         <button type="button" className="btn btn-dark logout-btn" onClick={handleLogout}>Log out</button>
                     </div>
                 </>}

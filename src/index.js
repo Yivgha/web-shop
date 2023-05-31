@@ -5,8 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./scss/main.scss";
 import App from './App';
 import { StateProvider } from './context/StateProvider';
-import { initialState } from './context/initialState';
-import reducer from './context/reducer';
+import reducer, { initialState } from './context/reducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
