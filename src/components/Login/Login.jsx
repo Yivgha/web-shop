@@ -27,7 +27,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         setSuccessMsg("Login Successful. You will now automatically get redirected to Home Page");
         setEmail("");

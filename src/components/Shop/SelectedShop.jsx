@@ -67,7 +67,7 @@ console.log(cart);
                 
                 
                 {user && docs?.map((doc) => 
-                  <li key={doc.uid} id={doc.uid}>
+                  <li key={doc.id} id={doc.id}>
                       <div className='shop-block'>
                           <img src={doc.url} alt={doc.name} className='shop-img rounded' />
                           
@@ -79,22 +79,18 @@ console.log(cart);
                         // onClick={handleAddToCart}
                         onClick={(e) => {
                           e.preventDefault();
-                       const productExist = myCart.find(item => item.id === doc.uid);
-    if (productExist) {
-      setMyCart(
-        myCart.map(item =>
-          item.id === doc.uid
-            ? { ...productExist, count: productExist.count + 1 }
-            : item
-        )
-      );
-    } else {
-      setMyCart([...myCart, { 
-        ...doc, 
-        count: 1
-      }]);
-  };
-  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart] });
+                          const productExist = myCart.find(item => item.id === doc.id);
+                          if (productExist) {
+                            setMyCart(myCart.map(el => el.id === doc.id
+                              ? { ...productExist, count: productExist.count + 1 }
+                              : el));
+                             dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+                          } else {
+                            setMyCart([...myCart, { ...doc, count: 1 }]);
+                             dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+                          }
+                       
+ // localStorage.setItem("cartItems", JSON.stringify(myCart));            
 }}
                       >Add to Cart</button>
                           

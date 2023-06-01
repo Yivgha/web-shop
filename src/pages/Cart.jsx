@@ -38,18 +38,13 @@ const Cart = () => {
 
      const [counter, setCounter] = useState(1);
      const inputRef = useRef(counter);
-    // const [itemPrice, setItemPrice] = useState(parseInt(counter) * parseFloat(price));
   const [totalPrice, setTotalPrice] = useState(0);
-
-    
 
 
     useEffect(() => {
-        // setItemPrice(parseInt(counter) * parseFloat(itemPrice));
       handleTotalPrice();
         // eslint-disable-next-line
-    }, [counter]);
-  
+    }, [counter, dispatch]);
 
   const handleTotalPrice = () => {
     if (cart.length > 0) {
@@ -57,31 +52,26 @@ const Cart = () => {
         return accumulator + (parseInt(item.count) * parseFloat(item.price))
       }, 0);
       setTotalPrice(calcTotalPrice);
+      dispatch({ type: actionType.SET_TOTAL_PRICE, cart: cart, total: totalPrice });
     }
-  }
-
     
-//   const handleIncrement = (doc) => {
-//     // const productExist = cart.find(item => item.id === doc.uid);
-//     // if (productExist) {
-//       // setCounter(doc.count + 1)
-//     // }
-//       setCounter((prevCounter) => prevCounter + 1);
-//     };
+  };
 
-//   const handleDecrement = (doc) => {
-// setCounter((prevCounter) => prevCounter - 1);
-//     // if (counter > 1) {
-//     //    setCounter(doc.count - 1)
-//     // }
-   
-//         if (counter === 1) {
-//           setCounter(1);
-//     }
-//   };
+  const handleRemoveItem = (doc) => {
+    if (cart.length > 0) {
+      let findIndex = cart.findIndex(item => item.id === doc.id);
+      // cart.slice(0, findIndex);
+      cart.pop(findIndex);
+      handleTotalPrice();
+      
+    }
+    dispatch({ type: actionType.SET_CART, cart: [...cart] });
+  };
   
-  const handleClearCart = () => {
-    dispatch({type: actionType.SET_CART, cart: []})
+  const handleClearCart = (e) => {
+    e.preventDefault();
+    setTotalPrice(0);
+    dispatch({ type: actionType.SET_CART, cart: [], total: totalPrice });
   }
 
   function handleInputChange() {
@@ -121,13 +111,13 @@ const Cart = () => {
           <CartProduct />
         </div> */}
 
-        <div className='cart-products'>
+        <ul className='cart-products'>
           {!cart && (<><p>Please wait...</p></>)}
           {cart?.length === 0 && (<><p>You haven't add any items to cart</p></>)}
           
           {cart?.length > 0 && (
             cart.map(cartItem => (
-              <div className='cart-product-container' id={cartItem.id} key={cartItem.id} >
+              <li className='cart-product-container' id={cartItem.id} key={cartItem.id} >
           <div className='cart-img-block'>
               <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
           </div>
@@ -136,30 +126,48 @@ const Cart = () => {
                   <p>Name: {cartItem.name}</p>
                     <p>Price: {parseFloat(cartItem.price) * parseInt(cartItem.count)}</p>
                   </div>
-                  
+                  <button type="button" onClick={handleRemoveItem}>Remove item</button>
                   
               <div className='cart-counter'>
                     <input className="counter-input" value={cartItem.count} onChange={handleInputChange} />
                     {/* <p>{cartItem.count }</p> */}
                   <div className='cart-counter-btns'>
-                      <button type="button" onClick={() => {
-                        setCounter(parseInt(cartItem.count + 1));
+                      <button type="button" onClick={(e) => {
+                        e.preventDefault();
+                        const productExist = cart.find(item => item.id === cartItem.id);
+                        if (productExist) {
+                          productExist.count = productExist.count + 1
+                          const insideEl = cart.map(el => el.id === cartItem.id ? { ...productExist, count: productExist.count + 1 } : el);
+                          setCounter(insideEl);
+                          handleTotalPrice();
+                         dispatch({type: actionType.SET_CART, cart: [...cart]})
+                        };
+                       
+                        
                       }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiPlus className='cart-counter-icon' size={20}/>
                   </button>
-                      <button type="button" onClick={() => {
-                        setCounter(parseInt(cartItem.count - 1))
+                      <button type="button" onClick={(e) => {
+                        e.preventDefault();
+                        const productExist = cart.find(item => item.id === cartItem.id);
+                        if (productExist) {
+                          productExist.count = productExist.count - 1
+                          setCounter(productExist.count - 1);
+                           handleTotalPrice();
+                        dispatch({type: actionType.SET_CART, cart: [...cart]})
+                        };
+                        
                       }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiOutlineMinus className='cart-counter-icon' />
                       </button>
                       </div>
               </div>
           </div>
-      </div>
+      </li>
             ))
           )}
           
-        </div>
+        </ul>
 
 
 

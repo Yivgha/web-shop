@@ -13,8 +13,10 @@ export const initialState = {
 export const actionType = {
     LOGOUT: "LOGOUT",
     SET_USER: "LOGIN",
-    SET_CART: "SET_CART",
-    SET_TOTAL: "SET_TOTAL",
+  SET_CART: "SET_CART",
+  // ADD_TO_CART: "ADD_TO_CART",
+  // REMOVE_FROM_CART: "REMOVE_FROM_CART",
+    SET_TOTAL_PRICE: "SET_TOTAL_PRICE"
 }
 
 const reducer = (state, action) => {
@@ -38,17 +40,21 @@ const reducer = (state, action) => {
           loading: false,
             };
         
-       case actionType.SET_CART:
-      return {
-        ...state,
-        cart: action.cart,
-      };
-
-    case actionType.SET_TOTAL:
-      return {
-        ...state,
-        total: action.total,
+      case actionType.SET_CART:
+        return {
+          ...state,
+          cart: action.cart,
         };
+      
+      case actionType.SET_TOTAL_PRICE:
+        return {
+          ...state,
+          cart: action.cart,
+          total: action.total
+        }
+      
+ 
+
       
         default:
             return state
