@@ -1,14 +1,15 @@
-// import { fetchUser, fetchCart } from "../utils/fetchUserData";
+import { fetchUser, fetchCart } from "../utils/fetchUserData";
 
-// const userInfo = fetchUser();
-// const cartInfo = fetchCart();
+const userInfo = fetchUser();
+const cartInfo = fetchCart();
 
 export const initialState = {
-    user: null,
+    user: userInfo,
     isAuthenticated: false,
     loading: false,
-    cart: [],
-    total: 0,
+    cart: cartInfo,
+    cartTotalQuantity: 0,
+    cartTotalAmount: 0,
 }
 
 export const actionType = {

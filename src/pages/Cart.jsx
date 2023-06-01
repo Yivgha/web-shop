@@ -119,7 +119,7 @@ function handleInputChange(e) {
           
           {cart?.length > 0 && (
             cart.map(cartItem => (
-              <div className='cart-product-container' id={Math.random()} key={Math.random()} counter={counter}>
+              <div className='cart-product-container' id={cartItem.id} key={Math.random()} >
           <div className='cart-img-block'>
               <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
           </div>
