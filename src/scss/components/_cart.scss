@@ -100,7 +100,23 @@ display: flex;
      margin-bottom: 20px;
 }
 .cart-btn{
-    margin-top: 40px;
+    // margin-top: 40px;
     width: 150px;
     height: 50px;
+}
+
+.cart-clear-and-total{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clear-cart-btn{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

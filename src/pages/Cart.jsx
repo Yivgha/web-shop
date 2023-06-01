@@ -1,6 +1,6 @@
 import React, {
   useState, useRef
-  // , useEffect
+  , useEffect
 } from 'react';
 // import CartProduct from '../components/Cart/CartProduct';
 // import ReCAPTCHA from 'react-google-recaptcha';
@@ -12,7 +12,8 @@ import { useStateValue } from "../context/StateProvider";
 // let cartItems = [];
 
 const Cart = () => {
-
+  const [{ cart}, dispatch] = useStateValue();
+  
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
@@ -24,8 +25,8 @@ const Cart = () => {
     console.log(cartAddress, cartEmail, cartName, cartPhone);
     dispatch({
             type: actionType.SET_CART,
-      cart: cart, 
-            total: total
+            cart: cart, 
+            total: totalPrice
         })
       setCartAddress("");
       setCartEmail("");
@@ -40,49 +41,55 @@ const Cart = () => {
     // const [itemPrice, setItemPrice] = useState(parseInt(counter) * parseFloat(price));
   const [totalPrice, setTotalPrice] = useState(0);
 
-    const [{ cart, total }, dispatch] = useStateValue();
+    
 
 
-    // useEffect(() => {
-    //     // setItemPrice(parseInt(counter) * parseFloat(itemPrice));
-    //   // handleTotalPrice()
-    //     // eslint-disable-next-line
-    // }, [counter]);
+    useEffect(() => {
+        // setItemPrice(parseInt(counter) * parseFloat(itemPrice));
+      handleTotalPrice();
+        // eslint-disable-next-line
+    }, [counter]);
+  
 
   const handleTotalPrice = () => {
-
-    //  parseFloat(cartItem.price.replace('$', '')
     if (cart.length > 0) {
       let calcTotalPrice = cart.reduce(function (accumulator, item) {
-        console.log(item.counter);
-        return accumulator + (parseInt(item.counter) * parseFloat(item.price))
+        return accumulator + (parseInt(item.count) * parseFloat(item.price))
       }, 0);
-
       setTotalPrice(calcTotalPrice);
-      dispatch({ type: actionType.SET_TOTAL, total: totalPrice });
     }
   }
 
     
-    const handleIncrement = () => {
-      setCounter((prevCounter) => prevCounter + 1);
-      handleTotalPrice();
-    };
+//   const handleIncrement = (doc) => {
+//     // const productExist = cart.find(item => item.id === doc.uid);
+//     // if (productExist) {
+//       // setCounter(doc.count + 1)
+//     // }
+//       setCounter((prevCounter) => prevCounter + 1);
+//     };
 
-    const handleDecrement = () => {
-        setCounter((prevCounter) => prevCounter - 1);
-        if (counter === 1) {
-          setCounter(1);
-      }
-      // handleTotalPrice();
-    };
+//   const handleDecrement = (doc) => {
+// setCounter((prevCounter) => prevCounter - 1);
+//     // if (counter > 1) {
+//     //    setCounter(doc.count - 1)
+//     // }
+   
+//         if (counter === 1) {
+//           setCounter(1);
+//     }
+//   };
+  
+  const handleClearCart = () => {
+    dispatch({type: actionType.SET_CART, cart: []})
+  }
 
-function handleInputChange(e) {
-  //   setCounter(parseInt(inputRef.current.value));
-  //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
-  //       setCounter(1);
-  // }
-  handleTotalPrice();
+  function handleInputChange() {
+    setCounter(parseInt(inputRef.current.value));
+    // setCounter(e.current.value);
+    //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
+    //       setCounter(1);
+    // }
     };
 
   return (
@@ -116,34 +123,32 @@ function handleInputChange(e) {
 
         <div className='cart-products'>
           {!cart && (<><p>Please wait...</p></>)}
+          {cart?.length === 0 && (<><p>You haven't add any items to cart</p></>)}
           
           {cart?.length > 0 && (
             cart.map(cartItem => (
-              <div className='cart-product-container' id={cartItem.id} key={Math.random()} >
+              <div className='cart-product-container' id={cartItem.id} key={cartItem.id} >
           <div className='cart-img-block'>
               <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
           </div>
           <div className='cart-description-block'>
               <div className='cart-description-info'>
                   <p>Name: {cartItem.name}</p>
-                    <p>Price: {parseFloat(cartItem.price) * parseInt(counter)}</p>
+                    <p>Price: {parseFloat(cartItem.price) * parseInt(cartItem.count)}</p>
                   </div>
                   
                   
               <div className='cart-counter'>
-                    <input className="counter-input" ref={inputRef} value={counter} onChange={handleInputChange} />
-
+                    <input className="counter-input" value={cartItem.count} onChange={handleInputChange} />
+                    {/* <p>{cartItem.count }</p> */}
                   <div className='cart-counter-btns'>
-                      <button type="button" onClick={handleIncrement} className='btn btn-outline-secondary btn-number cart-counter-btn'>
+                      <button type="button" onClick={() => {
+                        setCounter(parseInt(cartItem.count + 1));
+                      }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiPlus className='cart-counter-icon' size={20}/>
                   </button>
                       <button type="button" onClick={() => {
-                        handleDecrement();
-      //                   if (counter === 0) {
-      //                     setCounter(0);
-      //                     cart.pop(cartItem.id);
-      //                     dispatch({type: actionType.SET_CART, cart: cart})
-      // }
+                        setCounter(parseInt(cartItem.count - 1))
                       }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiOutlineMinus className='cart-counter-icon' />
                       </button>
@@ -160,8 +165,13 @@ function handleInputChange(e) {
 
               
         <div className='cart-sum'>
-          <div className='total-price'>Total Price: {totalPrice}</div>
-                  
+          <div className='cart-clear-and-total'> 
+            <button type="button" className="btn btn-danger clear-cart-btn" onClick={handleClearCart}>Clear cart</button>
+             <div className='total-price'>
+            Total Price: {totalPrice}
+          </div>
+          </div>
+         
           <div className='cart-submit'>
                       <div className='captcha'>
                           {/* <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} /> */}

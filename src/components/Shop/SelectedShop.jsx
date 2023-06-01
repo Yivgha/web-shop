@@ -20,11 +20,11 @@ const SelectedShop = ({ selectedShop}) => {
   // console.log(cart);
   // const handleAddToCart = (e, doc) => {
   //   e.preventDefault();
-  //   const productExist = myCart.find(item => item.id === doc.id);
+  //   const productExist = myCart.find(item => item.id === doc.uid);
   //   if (productExist) {
   //      setMyCart(
   //       myCart.map(item =>
-  //         item.id === doc.id
+  //         item.id === doc.uid
   //           ? { ...productExist, count: productExist.count + 1 }
   //           : item
   //       )
@@ -35,6 +35,24 @@ const SelectedShop = ({ selectedShop}) => {
   //   dispatch({type: actionType.SET_CART, cart: myCart });
   // };
 
+// const handleAddProduct = (doc) => {
+//     const productExist = myCart.find(item => item.id === doc.uid);
+//     if (productExist) {
+//       setMyCart(
+//         myCart.map(item =>
+//           item.id === doc.uid
+//             ? { ...productExist, count: productExist.count + 1 }
+//             : item
+//         )
+//       );
+//     } else {
+//       setMyCart([...myCart, { 
+//         ...doc, 
+//         count: 1  // <-- Change here
+//       }]);
+//   };
+//   dispatch({type: actionType.SET_CART, cart: myCart });
+//   };
 
 console.log(cart);
   
@@ -49,7 +67,7 @@ console.log(cart);
                 
                 
                 {user && docs?.map((doc) => 
-                  <li key={Math.random()} id={doc.id}>
+                  <li key={doc.uid} id={doc.uid}>
                       <div className='shop-block'>
                           <img src={doc.url} alt={doc.name} className='shop-img rounded' />
                           
@@ -61,11 +79,22 @@ console.log(cart);
                         // onClick={handleAddToCart}
                         onClick={(e) => {
                           e.preventDefault();
-                          const productExist = myCart.find(item => item.id === doc.id);
-                          if (productExist) {
-                            setMyCart({ ...productExist, count: productExist.count + 1 });
-                          } else { setMyCart([...myCart, { ...doc, count: 1 }]); };
-                          dispatch({ type: actionType.SET_CART, cart: [...cart, ...myCart] });
+                       const productExist = myCart.find(item => item.id === doc.uid);
+    if (productExist) {
+      setMyCart(
+        myCart.map(item =>
+          item.id === doc.uid
+            ? { ...productExist, count: productExist.count + 1 }
+            : item
+        )
+      );
+    } else {
+      setMyCart([...myCart, { 
+        ...doc, 
+        count: 1
+      }]);
+  };
+  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart] });
 }}
                       >Add to Cart</button>
                           

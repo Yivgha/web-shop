@@ -8,8 +8,6 @@ export const initialState = {
     isAuthenticated: false,
     loading: false,
     cart: cartInfo,
-    cartTotalQuantity: 0,
-    cartTotalAmount: 0,
 }
 
 export const actionType = {
