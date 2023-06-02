@@ -8,9 +8,6 @@ import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
 
-
-// let cartItems = [];
-
 const Cart = () => {
   const [{ cart}, dispatch] = useStateValue();
   
@@ -65,13 +62,16 @@ const Cart = () => {
     dispatch({ type: actionType.SET_CART, cart: [], total: totalPrice });
   }
 
-  function handleInputChange() {
-    setCounter(parseInt(inputRef.current.value));
-    // setCounter(e.current.value);
-    //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
-    //       setCounter(1);
-    // }
-    };
+  // function handleInputChange() {
+  //   setCounter(parseInt(inputRef.current.value));
+  //   // setCounter(e.current.value);
+  //   //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
+  //   //       setCounter(1);
+  //   // }
+  //   };
+
+
+
 
   return (
     <div className='container-fluid cart-container'>
@@ -126,8 +126,16 @@ const Cart = () => {
      }}>Remove item</button>
                   
               <div className='cart-counter'>
-                    <input className="counter-input" value={cartItem.count} onChange={handleInputChange} />
-                    {/* <p>{cartItem.count }</p> */}
+                    <input type="number" className="counter-input" inputRef={inputRef} value={cartItem.count} disabled
+                      onChange={(e)=>{
+                          let findItem = cart.find(item => item.id === cartItem.id);
+                          if (findItem) {
+                            cartItem.count = e.target.value;
+                            setCounter(e.target.value);
+                            dispatch({ type: actionType.SET_CART, cart: [...cart] });
+                          }
+                    }} />
+                   
                   <div className='cart-counter-btns'>
                       <button type="button" onClick={(e) => {
                         e.preventDefault();
@@ -167,8 +175,6 @@ const Cart = () => {
         </ul>
 
 
-
-              
         <div className='cart-sum'>
           <div className='cart-clear-and-total'> 
             <button type="button" className="btn btn-danger clear-cart-btn" onClick={handleClearCart}>Clear cart</button>
