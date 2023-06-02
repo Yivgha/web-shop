@@ -1,21 +1,20 @@
-import { fetchUser, fetchCart } from "../utils/fetchUserData";
+// import { fetchUser, fetchCart } from "../utils/fetchUserData";
 
-const userInfo = fetchUser();
-const cartInfo = fetchCart();
+// const userInfo = fetchUser();
+// const cartInfo = fetchCart();
 
 export const initialState = {
-    user: userInfo,
+    user: null,
     isAuthenticated: false,
-    loading: false,
-    cart: cartInfo,
+  loading: false,
+    refresh: false,
+    cart: [],
 }
 
 export const actionType = {
     LOGOUT: "LOGOUT",
     SET_USER: "LOGIN",
   SET_CART: "SET_CART",
-  // ADD_TO_CART: "ADD_TO_CART",
-  // REMOVE_FROM_CART: "REMOVE_FROM_CART",
     SET_TOTAL_PRICE: "SET_TOTAL_PRICE"
 }
 
@@ -28,7 +27,6 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.user,
                 isAuthenticated: true,
-                
             };
         
         case actionType.LOGOUT:
@@ -36,7 +34,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: false,
-          user: null,
+        user: null,
+          cart: [],
           loading: false,
             };
         

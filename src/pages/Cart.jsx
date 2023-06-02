@@ -123,7 +123,8 @@ const Cart = () => {
       cart.splice(findIndex, 1);
       handleTotalPrice();
       dispatch({ type: actionType.SET_CART, cart: [...cart] });
-     }}>Remove item</button>
+                  }}
+                  className='btn btn-secondary remove-item-cart'>Remove item</button>
                   
               <div className='cart-counter'>
                     <input type="number" className="counter-input" inputRef={inputRef} value={cartItem.count} disabled

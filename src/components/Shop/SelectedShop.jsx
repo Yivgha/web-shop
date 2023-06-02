@@ -56,7 +56,7 @@ console.log(cart);
                             //  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
                           }
                         dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
- localStorage.setItem("cartItems", JSON.stringify(myCart));            
+//  localStorage.setItem("cartItems", JSON.stringify(myCart));            
 }}
                       >Add to Cart</button>
                           

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ const Login = () => {
           type: actionType.SET_USER,
           user: cred.user
         });
-
+ localStorage.setItem("user", JSON.stringify(cred.user));
         setTimeout(() => {
           setSuccessMsg("");
           navigate("/shop")
@@ -50,10 +50,8 @@ const Login = () => {
         setErrorMsg(errorMessage);
         console.log(errorCode, errorMessage);
       });
-   localStorage.setItem("user", JSON.stringify(user));
+   
   };
-
-  
  
   return (
     <div className='container login-container'>

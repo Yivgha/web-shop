@@ -120,3 +120,16 @@ display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.remove-item-cart{
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6c757d;
+
+    &:hover {
+        background-color: #dc3545;
+    }
+}

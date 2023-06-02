@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import {
     auth,
-    // firestore
+    firestore
 } from "../../config/firebaseConfig";
 import { actionType } from '../../context/reducer';
 import { useStateValue } from "../../context/StateProvider";
-// import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 
 const GoogleBtn = () => {
 const navigate = useNavigate();
@@ -28,16 +28,30 @@ const navigate = useNavigate();
                      type: actionType.SET_USER,
                      user: providerData[0]
          });
-        
+       localStorage.setItem("user", JSON.stringify(user));
+       const userDoc = doc(firestore, "users", `${user.uid}`);
+       setDoc(userDoc, user, { merge: true });
+       
        navigate("/shop");   
        
   }
-  localStorage.setItem("user", JSON.stringify(user));
 
-//   const userDoc = doc(firestore, "users", `${user.uid}`);
-//          setDoc( userDoc, user, { merge: true });
-//          getDoc(userDoc);
-
+  const getUser = async () => {
+    const updUser = collection(firestore, "users");
+    const getDoc = await getDocs(updUser);
+    getDoc.forEach(element => {
+      const newUser = element.data();
+      // if (newUser.uid === user.uid) {
+        dispatch({ type: actionType.SET_USER, user: newUser });
+      // }
+    });
+  };
+    
+    
+    useEffect(() => { getUser() },
+        // eslint-disable-next-line
+        []);
+  
   return (
       <div>
         <button className='btn btn-primary btn-md' onClick={handleGoogleLogin}>Login with Google</button>

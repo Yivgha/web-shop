@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link,useNavigate} from "react-router-dom";
 import logo from "../../assets/logo64.png";
 import { GiShoppingCart } from "react-icons/gi";
-import { auth } from "../../config/firebaseConfig";
+import { auth, firestore} from "../../config/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
 import { actionType, initialState } from "../../context/reducer";
+import { collection, getDocs } from "firebase/firestore";
 
 const Navbar = () => {
   
@@ -17,14 +18,34 @@ const Navbar = () => {
     
     const handleLogout = () => {
         signOut(auth).then(() => {
-             dispatch({
-                 type: actionType.LOGOUT,
-                 user: initialState.user,
-    });
-            navigate("/login"); 
+            dispatch({
+                type: actionType.LOGOUT,
+                user: initialState.user,
+            });
+            localStorage.clear();
+            navigate("/login");
         })
+    };
+    
+   
+    const getUser = async () => {
+        const thisUser = auth.currentUser;
+        const updUser = collection(firestore, "users");
+    const getDoc = await getDocs(updUser);
+    getDoc.forEach(element => {
+        const newUser = element.data();
+        if (thisUser?.uid === newUser?.uid) {
+          dispatch({ type: actionType.SET_USER, user: newUser });
+     }
+            
+        
+       
+    });
     }
-//FIX USERNAME from DB!!!
+
+    useEffect(() => { getUser() },
+        // eslint-disable-next-line
+        []);
 
     return (
         <div className="container-fluid flex-nav">
