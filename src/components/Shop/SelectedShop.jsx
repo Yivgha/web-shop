@@ -6,6 +6,8 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 import { useStateValue } from '../../context/StateProvider';
 import { actionType } from '../../context/reducer';
+import { ToastContainer, toast } from "react-toastify";
+  import 'react-toastify/dist/ReactToastify.css';
 
 const SelectedShop = ({ selectedShop}) => {
 
@@ -22,7 +24,7 @@ console.log(cart);
 
   return (
    <div className='container-fluid'>
-   
+   <ToastContainer position="bottom-right" autoClose={3000} newestOnTop={true}/>
 {loading && <p className="shop-product-msg">Loading...</p>}
  {error && <p className="shop-product-msg">{error.message}</p>}
       
@@ -39,18 +41,23 @@ console.log(cart);
                                   <h4 className='shop-description'>Price: {doc.price}</h4>
                           </div>
                       <button type="button" className="btn btn-dark add-to-cart-btn"
-                        onClick={ async(e) => {
+                        onClick={ (e) => {
                           e.preventDefault();
-                          const productExist = myCart.find(item => item.id === doc.id);
+                          const productExist = myCart?.find(item => item.id === doc.id);
                           if (productExist) {
-                            alert("this product already in your cart")
-                            // setMyCart(myCart.map(item => item.id === doc.id
-                            //   ? { ...productExist, count: productExist.count + 1 }
-                            //   : item));
+                           
+                            setMyCart(myCart.map(item => item.id === doc.id
+                              ? { ...productExist, count: productExist.count + 1 }
+                              : item));
+                            toast.info("this product already in your cart")
+                            dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]}) 
                           } else {
-                            await setMyCart([...myCart, { ...doc, count: 1 }]);
-                          }
-                        dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})          
+                            setMyCart([...myCart, { ...doc, count: 1 }]);
+                            toast.success('Added to your cart')
+                            dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]}) 
+                          };
+                          
+                            
 }}
                       >Add to Cart</button>
                           

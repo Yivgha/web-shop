@@ -59,7 +59,8 @@ const Cart = () => {
   const handleClearCart = (e) => {
     e.preventDefault();
     setTotalPrice(0);
-    dispatch({ type: actionType.SET_CART, cart: [], total: totalPrice });
+    dispatch({ type: actionType.SET_CART, cart: [] });
+    dispatch({ type: actionType.SET_TOTAL_PRICE, total: totalPrice });
   }
 
   // function handleInputChange() {
