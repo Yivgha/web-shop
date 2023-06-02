@@ -54,7 +54,7 @@ const Shop = () => {
           <h2 className='shop-title'>Shops:</h2>
           {shops.length > 0 && (
             shops?.map((el) => (
-              <div className='shop-list-item' key={Math.random()} value={el.name}>
+              <div className='shop-list-item' key={el.id} value={el.name}>
                 <Link to={`${el.name}`} className='shop-item-name' >
                   <button type="button" className="btn btn-success" onClick={() => {
                     setSelectedShop(el.name);
@@ -82,7 +82,7 @@ const Shop = () => {
         {loading === true && <p>Loading...</p>} {error && <p>{error.message}</p>}
 
           {showAll === true && shops?.map((market) => (
-            <OneShop key={Math.random()}
+            <OneShop key={market.id}
               path={`shops/${market.name}/children`}  />
           ))}
         

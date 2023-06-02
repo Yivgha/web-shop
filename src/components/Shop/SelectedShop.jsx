@@ -17,11 +17,8 @@ const SelectedShop = ({ selectedShop}) => {
 
   const [myCart, setMyCart] = useState([]);
 
-  
-
 
 console.log(cart);
-  
 
   return (
    <div className='container-fluid'>
@@ -50,13 +47,10 @@ console.log(cart);
                             // setMyCart(myCart.map(item => item.id === doc.id
                             //   ? { ...productExist, count: productExist.count + 1 }
                             //   : item));
-                            //  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
                           } else {
                             await setMyCart([...myCart, { ...doc, count: 1 }]);
-                            //  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
                           }
-                        dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
-//  localStorage.setItem("cartItems", JSON.stringify(myCart));            
+                        dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})          
 }}
                       >Add to Cart</button>
                           
