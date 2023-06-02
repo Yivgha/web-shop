@@ -9,7 +9,7 @@ import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
 
 const Cart = () => {
-  const [{ cart}, dispatch] = useStateValue();
+  const [{ user, cart}, dispatch] = useStateValue();
   
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
@@ -19,18 +19,22 @@ const Cart = () => {
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
-    console.log(cartAddress, cartEmail, cartName, cartPhone);
-    dispatch({
-            type: actionType.SET_CART,
-            cart: cart, 
-            total: totalPrice
-        })
+    if (user !== null) {
+      console.log(cartAddress, cartEmail, cartName, cartPhone);
+      dispatch({
+        type: actionType.SET_CART,
+        cart: cart,
+        total: totalPrice
+      });
       setCartAddress("");
       setCartEmail("");
       setCartPhone("");
       setCartName("");
       // captchaRef.current.getValue();
       //   captchaRef.current.reset();
+    } else {
+      alert("error")
+    }
   }
 
      const [counter, setCounter] = useState(1);

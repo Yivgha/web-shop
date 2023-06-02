@@ -33,7 +33,7 @@ const OneShop = ({path}) => {
                           e.preventDefault();
                           const productExist = myCart?.find(item => item.id === doc.id);
                           if (productExist) {
-                            setMyCart(myCart.map(item => item.id === doc.id
+                            setMyCart(myCart?.map(item => item.id === doc.id
                               ? { ...productExist, count: productExist.count + 1 }
                                 : item));
                               toast.info("this product already in your cart")
