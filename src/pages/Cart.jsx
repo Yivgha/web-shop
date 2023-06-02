@@ -57,16 +57,7 @@ const Cart = () => {
     
   };
 
-  const handleRemoveItem = (doc) => {
-    if (cart.length > 0) {
-      let findIndex = cart.findIndex(item => item.id === doc.id);
-      // cart.slice(0, findIndex);
-      cart.pop(findIndex);
-      handleTotalPrice();
-      
-    }
-    dispatch({ type: actionType.SET_CART, cart: [...cart] });
-  };
+
   
   const handleClearCart = (e) => {
     e.preventDefault();
@@ -125,8 +116,14 @@ const Cart = () => {
               <div className='cart-description-info'>
                   <p>Name: {cartItem.name}</p>
                     <p>Price: {parseFloat(cartItem.price) * parseInt(cartItem.count)}</p>
+                  
                   </div>
-                  <button type="button" onClick={handleRemoveItem}>Remove item</button>
+                  <button type="button" onClick={() => {
+      let findIndex = cart.findIndex(item => item.id === cartItem.id);
+      cart.splice(findIndex, 1);
+      handleTotalPrice();
+      dispatch({ type: actionType.SET_CART, cart: [...cart] });
+     }}>Remove item</button>
                   
               <div className='cart-counter'>
                     <input className="counter-input" value={cartItem.count} onChange={handleInputChange} />

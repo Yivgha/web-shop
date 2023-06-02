@@ -53,7 +53,7 @@ const Navbar = () => {
                             <Link to="/cart">
                                 < GiShoppingCart size={30} />
                             </Link>
-                            <div className={`${!cart ? "noCartItem" : "cart-indicator"}`}>
+                            <div className={`${!cart || cart.length === 0 ? "noCartItem" : "cart-indicator"}`}>
                                 {cart ? cart?.length : ""}
                             </div>
                         </div>

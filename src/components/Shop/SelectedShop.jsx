@@ -17,42 +17,8 @@ const SelectedShop = ({ selectedShop}) => {
 
   const [myCart, setMyCart] = useState([]);
 
-  // console.log(cart);
-  // const handleAddToCart = (e, doc) => {
-  //   e.preventDefault();
-  //   const productExist = myCart.find(item => item.id === doc.uid);
-  //   if (productExist) {
-  //      setMyCart(
-  //       myCart.map(item =>
-  //         item.id === doc.uid
-  //           ? { ...productExist, count: productExist.count + 1 }
-  //           : item
-  //       )
-  //     );
-  //   } else {
-  //     setMyCart([...myCart, { ...doc, count: 1 }]);
-  //   };
-  //   dispatch({type: actionType.SET_CART, cart: myCart });
-  // };
+  
 
-// const handleAddProduct = (doc) => {
-//     const productExist = myCart.find(item => item.id === doc.uid);
-//     if (productExist) {
-//       setMyCart(
-//         myCart.map(item =>
-//           item.id === doc.uid
-//             ? { ...productExist, count: productExist.count + 1 }
-//             : item
-//         )
-//       );
-//     } else {
-//       setMyCart([...myCart, { 
-//         ...doc, 
-//         count: 1  // <-- Change here
-//       }]);
-//   };
-//   dispatch({type: actionType.SET_CART, cart: myCart });
-//   };
 
 console.log(cart);
   
@@ -76,21 +42,21 @@ console.log(cart);
                                   <h4 className='shop-description'>Price: {doc.price}</h4>
                           </div>
                       <button type="button" className="btn btn-dark add-to-cart-btn"
-                        // onClick={handleAddToCart}
-                        onClick={(e) => {
+                        onClick={ async(e) => {
                           e.preventDefault();
                           const productExist = myCart.find(item => item.id === doc.id);
                           if (productExist) {
-                            setMyCart(myCart.map(el => el.id === doc.id
-                              ? { ...productExist, count: productExist.count + 1 }
-                              : el));
-                             dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+                            alert("this product already in your cart")
+                            // setMyCart(myCart.map(item => item.id === doc.id
+                            //   ? { ...productExist, count: productExist.count + 1 }
+                            //   : item));
+                            //  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
                           } else {
-                            setMyCart([...myCart, { ...doc, count: 1 }]);
-                             dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+                            await setMyCart([...myCart, { ...doc, count: 1 }]);
+                            //  dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
                           }
-                       
- // localStorage.setItem("cartItems", JSON.stringify(myCart));            
+                        dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+ localStorage.setItem("cartItems", JSON.stringify(myCart));            
 }}
                       >Add to Cart</button>
                           
