@@ -21,7 +21,7 @@ const OneShop = ({path}) => {
                 {error && <p className="shop-product-msg">{error.message}</p>}
                 
                 {docs?.map((doc) => 
-                  <li key={doc.id}>
+                  <li key={doc.id} id={doc.id}>
                       <div className='shop-block'>
                           <img src={doc.url} alt={doc.name} className='shop-img rounded' />
                           

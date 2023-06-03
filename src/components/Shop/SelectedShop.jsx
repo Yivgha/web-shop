@@ -23,13 +23,12 @@ const SelectedShop = ({ selectedShop}) => {
 console.log(cart);
 
   return (
-   <div className='container-fluid'>
+   <div>
    <ToastContainer position="bottom-right" autoClose={3000} newestOnTop={true}/>
 {loading && <p className="shop-product-msg">Loading...</p>}
  {error && <p className="shop-product-msg">{error.message}</p>}
       
             <ul className='shop-product-list'>
-                
                 
                 {user && docs?.map((doc) => 
                   <li key={doc.id} id={doc.id}>
@@ -56,8 +55,6 @@ console.log(cart);
                             toast.success('Added to your cart')
                             dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]}) 
                           };
-                          
-                            
 }}
                       >Add to Cart</button>
                           

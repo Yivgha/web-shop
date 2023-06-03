@@ -48,7 +48,7 @@ const Shop = () => {
     <div className='container-fluid shop-container'>     
       <div className='left-side'>
 
-        {shops.length < 1 && (<><p>Please wait...</p></>)}
+        {shops.length < 1 && (<><p className="shop-product-msg">Please wait...</p></>)}
 
         {shops.length > 0 && (<>
           <h2 className='shop-title'>Shops:</h2>
@@ -79,7 +79,7 @@ const Shop = () => {
 
       <div className='right-side'>
         <h3 className='right-side-title'>Products:</h3>
-        {loading === true && <p>Loading...</p>} {error && <p>{error.message}</p>}
+        {loading === true && <p className="shop-product-msg">Loading...</p>} {error && <p>{error.message}</p>}
 
           {showAll === true && shops?.map((market) => (
             <OneShop key={market.id}
@@ -90,6 +90,7 @@ const Shop = () => {
           <SelectedShop key={item.id} selectedShop={selectedShop} />
         ))}
         
+        {showAll === false && shopBtnClicked === false && (<p className="shop-product-msg">Please select a shop to see products</p>)}
       <Outlet />
       </div>
       
