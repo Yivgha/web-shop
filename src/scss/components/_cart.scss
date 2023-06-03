@@ -177,7 +177,7 @@ border-top: 1px solid var(--black-border-color);
 
 .captcha{
      border: 1px solid var(--black-border-color);
-     width: 100px;
+     width: 150px;
      height: 40px;
      display: flex;
      align-items: center;
@@ -434,12 +434,13 @@ font-size: 20px;
 .cart-btn{
     width: 150px;
     height: 50px;
+     font-size: 20px;
 }
 .clear-cart-btn{
-    width: 100px;
-    height: 30px;
+    width: 150px;
+    height: 50px;
     margin-bottom: 20px;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 }

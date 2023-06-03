@@ -1,21 +1,23 @@
 import React, {
-  useState, useRef
+  useState, useRef, createRef
   , useEffect
 } from 'react';
-// import CartProduct from '../components/Cart/CartProduct';
-// import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from "react-google-recaptcha";
 import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
 
 const Cart = () => {
-  const [{ user, cart}, dispatch] = useStateValue();
+  const [{ user, cart }, dispatch] = useStateValue();
+
+  const { REACT_APP_SITE_KEY } = process.env;
   
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
     const [cartName, setCartName] = useState("");
-    // const captchaRef = useRef(null);
+  const captchaRef = createRef();
+  const [btnDisabled, setBtnDisabled] = useState(true);
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +32,8 @@ const Cart = () => {
       setCartEmail("");
       setCartPhone("");
       setCartName("");
-      // captchaRef.current.getValue();
-      //   captchaRef.current.reset();
+      captchaRef.current.getValue();
+        captchaRef.current.reset();
     } else {
       alert("error")
     }
@@ -48,7 +50,7 @@ const Cart = () => {
     }, [counter, dispatch]);
 
   const handleTotalPrice = () => {
-    if (cart.length > 0) {
+    if (cart?.length > 0) {
       let calcTotalPrice = cart.reduce(function (accumulator, item) {
         return accumulator + (parseInt(item.count) * parseFloat(item.price))
       }, 0);
@@ -74,7 +76,6 @@ const Cart = () => {
   //   //       setCounter(1);
   //   // }
   //   };
-
 
 
 
@@ -112,7 +113,7 @@ const Cart = () => {
           {cart?.length === 0 && (<><p>You haven't add any items to cart</p></>)}
           
           {cart?.length > 0 && (
-            cart.map(cartItem => (
+            cart?.map(cartItem => (
               <li className='cart-product-container' id={cartItem.id} key={cartItem.id} >
           <div className='cart-img-block'>
               <img className='cart-img' src={cartItem.url} alt={cartItem.name} />
@@ -125,7 +126,7 @@ const Cart = () => {
                   </div>
                   <button type="button" onClick={() => {
       let findIndex = cart.findIndex(item => item.id === cartItem.id);
-      cart.splice(findIndex, 1);
+      cart?.splice(findIndex, 1);
       handleTotalPrice();
       dispatch({ type: actionType.SET_CART, cart: [...cart] });
                   }}
@@ -134,7 +135,7 @@ const Cart = () => {
               <div className='cart-counter'>
                     <input type="number" className="counter-input" inputRef={inputRef} value={cartItem.count} disabled
                       onChange={(e)=>{
-                          let findItem = cart.find(item => item.id === cartItem.id);
+                          let findItem = cart?.find(item => item.id === cartItem.id);
                           if (findItem) {
                             cartItem.count = e.target.value;
                             setCounter(e.target.value);
@@ -145,10 +146,10 @@ const Cart = () => {
                   <div className='cart-counter-btns'>
                       <button type="button" onClick={(e) => {
                         e.preventDefault();
-                        const productExist = cart.find(item => item.id === cartItem.id);
+                        const productExist = cart?.find(item => item.id === cartItem.id);
                         if (productExist) {
                           productExist.count = productExist.count + 1
-                          const insideEl = cart.map(el => el.id === cartItem.id ? { ...productExist, count: productExist.count + 1 } : el);
+                          const insideEl = cart?.map(el => el.id === cartItem.id ? { ...productExist, count: productExist.count + 1 } : el);
                           setCounter(insideEl);
                           handleTotalPrice();
                          dispatch({type: actionType.SET_CART, cart: [...cart]})
@@ -160,7 +161,7 @@ const Cart = () => {
                   </button>
                       <button type="button" onClick={(e) => {
                         e.preventDefault();
-                        const productExist = cart.find(item => item.id === cartItem.id);
+                        const productExist = cart?.find(item => item.id === cartItem.id);
                         if (productExist) {
                           productExist.count = productExist.count - 1
                           setCounter(productExist.count - 1);
@@ -190,12 +191,16 @@ const Cart = () => {
           </div>
          
           <div className='cart-submit'>
-                      <div className='captcha'>
-                          {/* <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} /> */}
+            {/* <div className='captcha'> */}
+            
+              <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onChange={(e) => setBtnDisabled(false)} />
                           
-                      </div>
+                      {/* </div> */}
                       
-                      <button type="submit" className="btn btn-primary cart-btn" onClick={handleCartSubmit}>Submit</button>
+            <button type="submit" disabled={btnDisabled}
+              className="btn btn-primary cart-btn"
+              onClick={handleCartSubmit}
+            >Submit</button>
           </div>
         </div>
         

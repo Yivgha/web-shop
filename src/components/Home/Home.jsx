@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Navbar from "../Navbar/Navbar";
-import { Outlet, Link} from "react-router-dom";
+import { Outlet, Link, redirect} from "react-router-dom";
 import {
     auth
 } from '../../config/firebaseConfig';
@@ -12,15 +12,20 @@ const user = auth.currentUser;
     
 
     async function getUser() {
-         const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-            const foundUser = JSON.parse(loggedInUser);
-            setCurrentUser(foundUser);
+        if (user) {
+            const loggedInUser = localStorage.getItem("user");
+            if (loggedInUser) {
+                const foundUser = JSON.parse(loggedInUser);
+                setCurrentUser(foundUser);
+            } else {
+                setCurrentUser(user);
+            }
+            return user;
         } else {
-            setCurrentUser(user);
+            return redirect("/login");
         }
-        return user;       
-}
+            
+    };
 
     useEffect(() => {
         getUser();
@@ -29,13 +34,16 @@ const user = auth.currentUser;
     
     return (
         <div className="container-fluid">
-            {user ? (<Navbar currentuser={currentUser} />) : (
+            {user
+                ? (<> <Navbar currentuser={currentUser} /> <Outlet /></>)
+                : (
                 <div className="home-welcome-box">
                 <p className="home-text">Welcome to our delivery app!</p>
                 <img src={foodDel} alt="food delivery to home" className="home-main-img"/>
                 <p className="home-info">Please <Link to="/login">LOG IN</Link> or <Link to="/signup">SIGN UP</Link> to order food</p>
-           </div>)}
-            <Outlet/>
+                </div>
+            )}
+            
         </div>
     )
 }
