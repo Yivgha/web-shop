@@ -328,15 +328,15 @@ button {
 }
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .home-main-img {
-    width: 700px;
-    height: 550px;
+    width: 500px;
+    height: 350px;
     margin-bottom: 20px;
   }
 }
 @media screen and (min-width: 1200px) {
   .home-main-img {
-    width: 1000px;
-    height: 850px;
+    width: 900px;
+    height: 560px;
     margin-bottom: 20px;
   }
   .home-info {
@@ -1002,13 +1002,8 @@ button {
 }
 
 .captcha {
-  border: 1px solid var(--black-border-color);
-  width: 150px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
+  transform: scale(0.77);
 }
 
 .cart-btn {
@@ -1211,6 +1206,8 @@ button {
     min-width: 370px;
     min-height: 200px;
     margin-bottom: 0;
+    display: flex;
+    align-self: center;
   }
   .cart-img {
     width: 370px;

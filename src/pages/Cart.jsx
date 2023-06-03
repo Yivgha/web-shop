@@ -1,23 +1,24 @@
 import React, {
-  useState, useRef, createRef
+  useState, useRef
   , useEffect
 } from 'react';
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Cart = () => {
   const [{ user, cart }, dispatch] = useStateValue();
 
-  const { REACT_APP_SITE_KEY } = process.env;
+  // const { REACT_APP_SITE_KEY } = process.env;
   
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
     const [cartName, setCartName] = useState("");
-  const captchaRef = createRef();
-  const [btnDisabled, setBtnDisabled] = useState(true);
+  // const captchaRef = createRef();
+  const [btnDisabled, setBtnDisabled] = useState(false);
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
@@ -31,10 +32,11 @@ const Cart = () => {
       setCartEmail("");
       setCartPhone("");
       setCartName("");
-      captchaRef.current.getValue();
-        captchaRef.current.reset();
+      // captchaRef.current.getValue();
+      //   captchaRef.current.reset();
+      toast.success("Submitted")
     } else {
-      alert("error")
+      toast.error("Your data wasn't send")
     }
   }
 
@@ -90,7 +92,7 @@ const Cart = () => {
         </form>
       </div>
       <div className="cart-right">
-
+<ToastContainer />
         <ul className='cart-products'>
           {!cart && (<><p>Please wait...</p></>)}
           {cart?.length === 0 && (<><p>You haven't add any items to cart</p></>)}
@@ -176,9 +178,11 @@ const Cart = () => {
           <div className='cart-submit'>
             {/* <div className='captcha'> */}
             
-              <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onClick={(e) => setBtnDisabled(false)} />
-                          
-                      {/* </div> */}
+            {/* <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onChange={() => setBtnDisabled(false)}
+            className='captcha'
+            /> */}
+{/*                           
+                      </div> */}
                       
             <button type="submit" disabled={btnDisabled}
               className="btn btn-primary cart-btn"
