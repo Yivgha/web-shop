@@ -14,7 +14,7 @@ const OneShop = ({path}) => {
     const [myCart, setMyCart] = useState([]);
     
     return (
-        <div className='container-fluid'>
+        <div className='container-fluid one-shop-box'>
             <ToastContainer position="bottom-right" autoClose={3000} newestOnTop={true}/>
             <ul className='shop-product-list'>
                 {loading && <p className="shop-product-msg">Loading...</p>}

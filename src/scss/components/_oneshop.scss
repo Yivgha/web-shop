@@ -1,16 +1,17 @@
-
+.one-shop-box{
+    padding: 0px;
+}
 .shop-product-msg{
-    font-size: 30px;
+    font-size: 15px;
 }
 
 .shop-product-list{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .shop-block{
-    max-width: 450px;
+    max-width: 250px;
     border: 1px solid var(--black-border-color);
     padding: 10px;
     margin-bottom: 30px;
@@ -20,8 +21,8 @@
 
 .shop-img{
     width: 100%;
-    height: 250px;
-    margin-bottom: 15px;
+    height: 150px;
+    margin-bottom: 5px;
 }
 
 .shop-description-info{
@@ -30,23 +31,90 @@
     justify-content: space-between;
     align-items: baseline;
     text-align: center;
-    padding: 0 10px;
+    padding: 0;
 }
 
 .shop-title{
-    font-size: 25px;
+    font-size: 15px;
     color: var(--black-text-color);
 }
 
 .shop-description{
-    font-size: 20px;
+    font-size: 13px;
     color: var(--black-text-color);
 }
 
 .add-to-cart-btn{
+    width: 110px;
+    height: 30px;
+    font-size: 13px;
+    align-self: flex-end;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px){
+   .shop-product-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+}
+.shop-block{
+    max-width: 220px;
+    margin-bottom: 15px;
+}
+.shop-img{
+margin-bottom: 10px;
+}
+}
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .shop-product-msg{
+    font-size: 20px;
+}
+.shop-product-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+}
+.shop-block{
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+.shop-img{
+margin-bottom: 10px;
+}
+.shop-description{
+    font-size: 13px;
+}
+}
+@media screen and (min-width: 1200px){
+    .shop-product-msg{
+    font-size: 30px;
+}
+.shop-product-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+.shop-block{
+    max-width: 450px;
+    margin-bottom: 30px;
+}
+.shop-img{
+height:250px;
+margin-bottom: 15px;
+}
+.shop-description-info{
+    padding: 0 10px;
+}
+.shop-title{
+    font-size: 25px;
+}
+.shop-description{
+    font-size: 20px;
+}
+.add-to-cart-btn{
     width: 150px;
     height: 40px;
     font-size: 18px;
-    align-self: flex-end;
-    text-transform: uppercase;
+}
 }

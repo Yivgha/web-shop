@@ -13,7 +13,7 @@ const Login = () => {
 
   const [
     // eslint-disable-next-line
-    { user },
+    { user, isAuthenticated },
     dispatch] = useStateValue();
   
     const [email, setEmail] = useState("");
@@ -41,7 +41,9 @@ const Login = () => {
  localStorage.setItem("user", JSON.stringify(cred.user));
         setTimeout(() => {
           setSuccessMsg("");
-          navigate("/shop")
+          if (isAuthenticated === true) {
+            navigate("/shop");
+          }
         }, 2000);
       })
       .catch((error) => {

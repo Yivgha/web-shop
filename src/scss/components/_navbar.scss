@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .slash{
-    height: 100%;
+    height: inherit;
     width: 1px;
     color: var(--black-text-color);
     margin-left: 5px;
@@ -26,16 +26,20 @@
 }
 
 .main-logo{
-    margin-right: 10px;
-    width: 64px;
-    height: 64px;
+    margin-right: 5px;
+    width: 34px;
+    height: 34px;
     animation: rotation 3s infinite linear;
 }
 
+.nav-text{
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
 .user-box{
-    
     width: 100%;
-    height: 50px;
+    height: 30px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -44,37 +48,50 @@
      
 }
 .user-info{
-    margin-right: 50px;
+    margin-right: 1px;
 }
 .user-text{
-    font-size: 15px;
+    font-size: 10px;
     color: var(--black-text-color);
     margin-left: 5px;
     margin-top: 20px;
 }
+.shopping-cart-icon{
+    width: 20px;
+    height: 20px;
+}
 .logout-btn{
-    margin-right: 10px;
+    margin-right: 5px;
+    width: 45px;
+    height: 35px;
+    font-size: 10px;
+    padding: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
 }
 
 //CART MENU
 
 .cart-menu-btn{
   position: relative;  
-  margin-right: 50px;
+  margin-right: 5px;
 }
 
 .cart-menu-btn .cart-indicator{
-  width: 18px;
-  height: 15px;
+  width: 13px;
+  height: 11px;
   background-color: #e00a02;
-  padding: 3px;
+  padding: 1px;
   border-radius: 3px;
   color: #fff;
-  font-size: 11px;
+  font-size: 8px;
   font-weight: 600;
   position: absolute;
   top: -3px;
-  right: -7px;
+  right: -3px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,4 +99,127 @@
 
 .cart-menu-btn .noCartItem {
   display: none;
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px){
+    .flex-nav{
+        margin-top: 15px;
+    }
+
+    .main-logo{
+        margin-right: 5px;
+         width: 44px;
+    height: 44px;
+    }
+    .nav-text{
+        font-size: 12px;
+    }
+    .user-box{
+        height: 50px;
+    }
+    .user-box{
+        height: 30px;
+    }
+    .user-info{
+    margin-right: 10px;
+}
+.user-text{
+    font-size: 12px;
+}
+.cart-menu-btn{
+  margin-right: 20px;
+}
+.logout-btn{
+    margin-right: 10px;
+    width: 45px;
+    height: 25px;
+}
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .flex-nav{
+        margin-top: 20px;
+    }
+
+    .main-logo{
+    margin-right: 10px;
+    width: 64px;
+    height: 64px;
+}
+ .nav-text{
+        font-size: 15px;
+    }
+    .user-box{
+        height: 40px;
+    }
+    .user-info{
+    margin-right: 40px;
+}
+.user-text{
+    font-size: 12px;
+}
+.shopping-cart-icon{
+    width: 30px;
+    height: 30px;
+}
+.cart-menu-btn{
+  margin-right: 40px;
+}
+.cart-menu-btn .cart-indicator{
+     width: 18px;
+  height: 15px;
+  padding: 3px;
+  right: -7px;
+   font-size: 11px;
+}
+.logout-btn{
+    margin-right: 10px;
+    width: 70px;
+    height: 30px;
+    font-size: 13px;
+}
+}
+
+@media screen and (min-width: 1200px){
+    .flex-nav{
+        margin-top: 20px;
+    }
+     .main-logo{
+    margin-right: 10px;
+    width: 64px;
+    height: 64px;
+}
+ .nav-text{
+        font-size: 20px;
+    }
+
+    .user-box{
+        height: 50px;
+    }
+    .user-info{
+    margin-right: 50px;
+}
+.user-text{
+    font-size: 15px;
+}
+.shopping-cart-icon{
+    width: 30px;
+    height: 30px;
+}
+.cart-menu-btn{ 
+  margin-right: 50px;
+}
+.cart-menu-btn .cart-indicator{
+     width: 18px;
+  height: 15px;
+  padding: 3px;
+   right: -7px;
+   font-size: 11px;
+}
+.logout-btn{
+    margin-right: 10px;
+    width: 70px;
+    height: 40px;
+    font-size: 15px;
+}
 }

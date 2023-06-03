@@ -6,7 +6,7 @@
 export const initialState = {
     user: null,
     isAuthenticated: false,
-  loading: false,
+    loading: false,
     refresh: false,
     cart: [],
 }

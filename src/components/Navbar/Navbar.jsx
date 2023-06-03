@@ -12,7 +12,7 @@ const Navbar = () => {
   
   const [
     // eslint-disable-next-line
-    { user, cart },
+    { user, cart, isAuthenticated},
     dispatch] = useStateValue();
     const navigate = useNavigate();
     
@@ -23,7 +23,10 @@ const Navbar = () => {
                 user: initialState.user,
             });
             localStorage.clear();
-            navigate("/login");
+            if (isAuthenticated === false) {
+                navigate("/login");
+            }
+            
         })
     };
     
@@ -36,10 +39,7 @@ const Navbar = () => {
         const newUser = element.data();
         if (thisUser?.uid === newUser?.uid) {
           dispatch({ type: actionType.SET_USER, user: newUser });
-     }
-            
-        
-       
+        };       
     });
     }
 
@@ -53,18 +53,19 @@ const Navbar = () => {
                 <Link to="/shop">
                     <img src={logo} alt="main logo" className="main-logo" />
                     </Link>
-            <Link to="/shop">Shop</Link>
+                <Link to="/shop" className="nav-text">
+                   Shop</Link>
             <span className="slash">|</span>
-                <Link to="/cart">Shopping Cart</Link>
+                <Link to="/cart" className="nav-text">Shopping Cart</Link>
 
             </div>
             <div className="container nav-side-right">
                 {!user && <>
-                <Link to="/signup" >SIGN UP</Link>
+                <Link to="/signup" className="nav-text">SIGN UP</Link>
                 <span className="slash">|</span>
-                    <Link to="/login" >LOG IN</Link></>}
+                    <Link to="/login" className="nav-text">LOG IN</Link></>}
                 
-                {user && <>
+                {user && isAuthenticated === true && (<>
                     <div className="user-box">
                         <div className="user-info">
                             <p className="user-text">Hello, {user.displayName === null ? user.email : user.displayName}</p>
@@ -72,7 +73,7 @@ const Navbar = () => {
                         
                         <div className="cart-menu-btn">
                             <Link to="/cart">
-                                < GiShoppingCart size={30} />
+                                < GiShoppingCart className="shopping-cart-icon" />
                             </Link>
                             <div className={`${!cart || cart.length === 0 ? "noCartItem" : "cart-indicator"}`}>
                                 {cart ? cart?.length : ""}
@@ -81,7 +82,7 @@ const Navbar = () => {
                         
                         <button type="button" className="btn btn-dark logout-btn" onClick={handleLogout}>Log out</button>
                     </div>
-                </>}
+                </>)}
             </div>
         </div>
     )
