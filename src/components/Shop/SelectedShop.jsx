@@ -56,8 +56,10 @@ console.log(cart);
                            dispatch({ type: actionType.SET_CART, cart: [...cart, ...myCart] });
                             toast.success('Added to your cart');
                           };
-}}
-                      >Add to Cart</button>
+                        }}
+                      >Add to Cart
+                      {<div className='hide'>Click to add in cart</div>}
+                      </button>
                           
                       </div>
                   </li>

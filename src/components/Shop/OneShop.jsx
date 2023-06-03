@@ -11,7 +11,7 @@ const OneShop = ({path}) => {
     const [{ cart }, dispatch] = useStateValue();
      const query = collection(firestore, path);
     const [docs, loading, error] = useCollectionData(query);
-    const [myCart, setMyCart] = useState([]);
+  const [myCart, setMyCart] = useState([]);
     
     return (
         <div className='container-fluid one-shop-box'>
@@ -44,8 +44,10 @@ const OneShop = ({path}) => {
                         };
                         toast.success('Added to your cart');
                               
-}}
-                            >Add to Cart</button>
+                      }}
+                      >Add to Cart
+                      {<div className='hide'>Click to add in cart</div>}
+                      </button>
                           
                       </div>
                   </li>
