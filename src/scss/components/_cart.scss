@@ -73,8 +73,7 @@ display: flex;
     padding: 10px;
    display: flex;
    flex-direction: column;
-    // border: 1px solid var(--black-border-color);
-        border-top: 1px solid var(--black-border-color);
+border-top: 1px solid var(--black-border-color);
     border-bottom: 1px solid var(--black-border-color);
     margin-bottom: 5px;
     width: 100%;
@@ -82,7 +81,6 @@ display: flex;
 }
 
 .cart-img-block{
-    // border: 1px solid var(--black-border-color);
     width: 100%;
     height: 150px; 
     margin-bottom: 10px;

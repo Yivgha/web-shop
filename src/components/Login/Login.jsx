@@ -58,7 +58,7 @@ const Login = () => {
   return (
     <div className='container login-container'>
       <h1 className='login-title'>Login</h1>
-      <hr></hr>
+     
       {successMsg && <><div className="success-msg">{successMsg}</div></>}
 <form className='form-group' autoComplete="off"
         onSubmit={handleLogin}
@@ -78,6 +78,7 @@ const Login = () => {
   <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
               </div>
       </form>
+      <p>OR</p>
       <GoogleBtn />
        {errorMsg && <><div className="error-msg">{errorMsg}</div></>}
           <Outlet />

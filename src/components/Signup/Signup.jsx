@@ -56,7 +56,6 @@ getDoc(usersRef);
   return (
       <div className='container signup-container'>
           <h1 className='signup-title'>Sign Up</h1>
-      <hr></hr>
       {successMsg && <><div className="success-msg">{successMsg}</div></>}
       <form className='form-group' autoComplete="off"
         onSubmit={handleSignup}
@@ -80,6 +79,7 @@ getDoc(usersRef);
                     <button type="submit" className='btn btn-success btn-md signup-btn'>SIGN UP</button>
                 </div>
       </form>
+      <p>OR</p>
     <GoogleBtn />
       {errorMsg && <><div className="error-msg">{errorMsg}</div></>}
           <Outlet />

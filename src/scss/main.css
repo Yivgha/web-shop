@@ -296,14 +296,67 @@ button {
     font-size: 15px;
   }
 }
+.home-welcome-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-text {
+  margin-top: 50px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.home-info {
+  font-size: 15px;
+}
+
+.home-main-img {
+  width: 300px;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .home-main-img {
+    width: 450px;
+    height: 350px;
+    margin-bottom: 15px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .home-main-img {
+    width: 700px;
+    height: 550px;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .home-main-img {
+    width: 1000px;
+    height: 850px;
+    margin-bottom: 20px;
+  }
+  .home-info {
+    font-size: 30px;
+  }
+}
 .login-container {
   padding-top: 20px;
   padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
 }
 
 .login-title {
-  font-size: 35px;
+  font-size: 20px;
   font-weight: 400;
+  margin-bottom: 15px;
 }
 
 .login-container .form-group {
@@ -352,14 +405,62 @@ button {
   height: 50px;
 }
 
+.error-pg-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.error-img {
+  width: 300px;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.error-info {
+  font-size: 15px;
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .error-img {
+    width: 450px;
+    height: 350px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .error-img {
+    width: 700px;
+    height: 550px;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .error-img {
+    width: 1000px;
+    height: 850px;
+    margin-bottom: 20px;
+  }
+  .error-info {
+    font-size: 20px;
+  }
+}
 .signup-container {
   padding-top: 20px;
   padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
 }
 
 .signup-title {
-  font-size: 35px;
+  font-size: 20px;
   font-weight: 400;
+  margin-bottom: 15px;
 }
 
 .signup-container .form-group {

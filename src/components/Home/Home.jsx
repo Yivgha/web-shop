@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from "react";
 import Navbar from "../Navbar/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link} from "react-router-dom";
 import {
-    auth,
-    // firestore
+    auth
 } from '../../config/firebaseConfig';
-// import { getDoc, doc } from "firebase/firestore";
+import foodDel from "../../assets/food-delivery.jpg"
     
 const Home = () => {
 const user = auth.currentUser;
@@ -30,8 +29,12 @@ const user = auth.currentUser;
     
     return (
         <div className="container-fluid">
-            <Navbar currentuser={currentUser} />
-           
+            {user ? (<Navbar currentuser={currentUser} />) : (
+                <div className="home-welcome-box">
+                <p className="home-text">Welcome to our delivery app!</p>
+                <img src={foodDel} alt="food delivery to home" className="home-main-img"/>
+                <p className="home-info">Please <Link to="/login">LOG IN</Link> or <Link to="/signup">SIGN UP</Link> to order food</p>
+           </div>)}
             <Outlet/>
         </div>
     )
