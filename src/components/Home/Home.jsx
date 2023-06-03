@@ -19,6 +19,7 @@ const user = auth.currentUser;
                 setCurrentUser(foundUser);
             } else {
                 setCurrentUser(user);
+                localStorage.setItem("user", JSON.stringify(user))
             }
             return user;
         } else {

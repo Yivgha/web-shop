@@ -23,8 +23,7 @@ const Signup = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   
-  const handleSignup = async (e) => {
-    e.preventDefault();
+  const handleSignup = async () => {
     await createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
       const uid = credentials.user.uid;
       const data = {

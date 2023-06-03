@@ -22,7 +22,6 @@ const Cart = () => {
   const handleCartSubmit = (e) => {
     e.preventDefault();
     if (user !== null) {
-      console.log(cartAddress, cartEmail, cartName, cartPhone);
       dispatch({
         type: actionType.SET_CART,
         cart: cart,
@@ -60,24 +59,11 @@ const Cart = () => {
     
   };
 
-
-  
-  const handleClearCart = (e) => {
-    e.preventDefault();
+  const handleClearCart = () => {
     setTotalPrice(0);
     dispatch({ type: actionType.SET_CART, cart: [] });
     dispatch({ type: actionType.SET_TOTAL_PRICE, total: totalPrice });
-  }
-
-  // function handleInputChange() {
-  //   setCounter(parseInt(inputRef.current.value));
-  //   // setCounter(e.current.value);
-  //   //   if (isNaN(counter) || isNaN(e.target.value) || isNaN(parseInt(inputRef.current.value))) {
-  //   //       setCounter(1);
-  //   // }
-  //   };
-
-
+  };
 
   return (
     <div className='container-fluid cart-container'>
@@ -104,9 +90,6 @@ const Cart = () => {
         </form>
       </div>
       <div className="cart-right">
-        {/* <div className='cart-products'>
-          <CartProduct />
-        </div> */}
 
         <ul className='cart-products'>
           {!cart && (<><p>Please wait...</p></>)}
@@ -144,8 +127,7 @@ const Cart = () => {
                     }} />
                    
                   <div className='cart-counter-btns'>
-                      <button type="button" onClick={(e) => {
-                        e.preventDefault();
+                      <button type="button" onClick={() => {
                         const productExist = cart?.find(item => item.id === cartItem.id);
                         if (productExist) {
                           productExist.count = productExist.count + 1
@@ -159,16 +141,17 @@ const Cart = () => {
                       }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiPlus className='cart-counter-icon' size={20}/>
                   </button>
-                      <button type="button" onClick={(e) => {
-                        e.preventDefault();
+                      <button type="button" onClick={() => {
                         const productExist = cart?.find(item => item.id === cartItem.id);
-                        if (productExist) {
+                        if (productExist && productExist.count >= 2) {
                           productExist.count = productExist.count - 1
                           setCounter(productExist.count - 1);
                            handleTotalPrice();
                         dispatch({type: actionType.SET_CART, cart: [...cart]})
                         };
-                        
+                        if (productExist.count === 1) {
+                          setCounter(1);
+                        }
                       }} className='btn btn-outline-secondary btn-number cart-counter-btn'>
                           <HiOutlineMinus className='cart-counter-icon' />
                       </button>
@@ -193,7 +176,7 @@ const Cart = () => {
           <div className='cart-submit'>
             {/* <div className='captcha'> */}
             
-              <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onChange={(e) => setBtnDisabled(false)} />
+              <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onClick={(e) => setBtnDisabled(false)} />
                           
                       {/* </div> */}
                       

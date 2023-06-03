@@ -38,7 +38,7 @@ const Login = () => {
           type: actionType.SET_USER,
           user: cred.user
         });
- localStorage.setItem("user", JSON.stringify(cred.user));
+        localStorage.setItem("user", JSON.stringify(cred.user));
         setTimeout(() => {
           setSuccessMsg("");
           if (isAuthenticated === true) {

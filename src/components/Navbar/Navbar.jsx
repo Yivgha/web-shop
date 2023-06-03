@@ -7,6 +7,7 @@ import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
 import { actionType, initialState } from "../../context/reducer";
 import { collection, getDocs } from "firebase/firestore";
+import { redirect } from "react-router-dom";
 
 const Navbar = () => {
   
@@ -16,18 +17,21 @@ const Navbar = () => {
     dispatch] = useStateValue();
     const navigate = useNavigate();
     
-    const handleLogout = () => {
-        signOut(auth).then(() => {
+    const handleLogout = async() => {
+        if (isAuthenticated === true) {
+           await signOut(auth).then(() => {
             dispatch({
                 type: actionType.LOGOUT,
                 user: initialState.user,
             });
             localStorage.clear();
-            if (isAuthenticated === false) {
-                navigate("/login");
+            navigate("/login");
+        });
+        }
+        
+        if (isAuthenticated === false) {
+                redirect("/login");
             }
-            
-        })
     };
     
    
@@ -75,7 +79,7 @@ const Navbar = () => {
                             <Link to="/cart">
                                 < GiShoppingCart className="shopping-cart-icon" />
                             </Link>
-                            <div className={`${!cart || cart.length === 0 ? "noCartItem" : "cart-indicator"}`}>
+                            <div className={!cart || cart?.length === 0 ? "noCartItem" : "cart-indicator"}>
                                 {cart ? cart?.length : ""}
                             </div>
                         </div>

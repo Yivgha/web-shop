@@ -40,20 +40,21 @@ console.log(cart);
                                   <h4 className='shop-description'>Price: {doc.price}</h4>
                           </div>
                       <button type="button" className="btn btn-dark add-to-cart-btn"
-                        onClick={ (e) => {
-                          e.preventDefault();
+                        onClick={ async() => {
                           const productExist = myCart?.find(item => item.id === doc.id);
                           if (productExist) {
                            
-                            setMyCart(myCart?.map(item => item.id === doc.id
+                            await setMyCart(myCart?.map(item => item.id === doc.id
                               ? { ...productExist, count: productExist.count + 1 }
                               : item));
+                            
+                          dispatch({ type: actionType.SET_CART, cart: [...cart, ...myCart] });
                             toast.info("this product already in your cart")
-                            dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]}) 
                           } else {
-                            setMyCart([...myCart, { ...doc, count: 1 }]);
-                            toast.success('Added to your cart')
-                            dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]}) 
+                           await setMyCart([...myCart, { ...doc, count: 1 }]);
+                            
+                           dispatch({ type: actionType.SET_CART, cart: [...cart, ...myCart] });
+                            toast.success('Added to your cart');
                           };
 }}
                       >Add to Cart</button>

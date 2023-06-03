@@ -29,22 +29,20 @@ const OneShop = ({path}) => {
                                   <h3 className='shop-title'>{doc.name}</h3>
                                   <h4 className='shop-description'>Price: {doc.price}</h4>
                           </div>
-                            <button type="button" className="btn btn-dark add-to-cart-btn" onClick={(e) => {
+                            <button type="button" className="btn btn-dark add-to-cart-btn" onClick={async(e) => {
                           e.preventDefault();
                           const productExist = myCart?.find(item => item.id === doc.id);
                           if (productExist) {
-                            setMyCart(myCart?.map(item => item.id === doc.id
+                            await setMyCart(myCart?.map(item => item.id === doc.id
                               ? { ...productExist, count: productExist.count + 1 }
-                                : item));
-                              toast.info("this product already in your cart")
-                              
-                                dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})  
+                              : item));
+                            dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})
+                            toast.info("this product already in your cart");
                           } else {
-                              setMyCart([...myCart, { ...doc, count: 1 }]);
-                              toast.success('Added to your cart');
-                              
+                              await setMyCart([...myCart, { ...doc, count: 1 }]);                              
                                 dispatch({type: actionType.SET_CART, cart: [...cart, ...myCart]})  
-                                };
+                        };
+                        toast.success('Added to your cart');
                               
 }}
                             >Add to Cart</button>
