@@ -1,5 +1,8 @@
 import React from "react";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import {
+  // BrowserRouter,
+  Routes, Route, HashRouter
+} from "react-router-dom";
 import Home  from "./components/Home/Home";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
@@ -10,11 +13,11 @@ import SelectedShop from "./components/Shop/SelectedShop";
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
-        <Route path="https://yivgha.github.io/web-shop/" element={<Home />}>
+        <Route exact path="https://yivgha.github.io/web-shop/" element={<Home />}>
           
-          <Route exact path="shop" element={<Shop />}>
+          <Route  path="shop" element={<Shop />}>
             <Route path="/shop/:id" element={<SelectedShop />} />
           </Route>
           
@@ -25,7 +28,7 @@ export const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />}/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
