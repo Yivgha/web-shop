@@ -7,6 +7,8 @@ import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
 import { ToastContainer, toast } from 'react-toastify';
+import { firestore } from '../config/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Cart = () => {
   const [{ user, cart }, dispatch] = useStateValue();
@@ -19,10 +21,12 @@ const Cart = () => {
     const [cartName, setCartName] = useState("");
   // const captchaRef = createRef();
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [itemsToSumbit, setItemsToSubmit] = useState(cart);
   
   const handleCartSubmit = (e) => {
     e.preventDefault();
-    if (user !== null) {
+    if (user) {
+      fireAddUserCart();
       dispatch({
         type: actionType.SET_CART,
         cart: cart,
@@ -32,13 +36,28 @@ const Cart = () => {
       setCartEmail("");
       setCartPhone("");
       setCartName("");
+      handleClearCart();
+      setItemsToSubmit(cart);
       // captchaRef.current.getValue();
       //   captchaRef.current.reset();
       toast.success("Submitted")
     } else {
       toast.error("Your data wasn't send")
     }
-  }
+  };
+
+  const fireAddUserCart = async () => {
+  const testCollection = collection(firestore, "users", `${user.uid}`, "cart");
+    await addDoc(testCollection, {
+      title: `${new Date()}`, name: cartName,
+      address: cartAddress, email: cartEmail,
+      phone: cartPhone,
+      items: itemsToSumbit,
+      totalPrice: totalPrice
+    })
+      .then(() => console.log("Cart added"))
+      .catch((err) => console.log(err.message));
+}
 
      const [counter, setCounter] = useState(1);
      const inputRef = useRef(counter);
@@ -47,6 +66,7 @@ const Cart = () => {
 
     useEffect(() => {
       handleTotalPrice();
+      setBtnDisabled(false);
         // eslint-disable-next-line
     }, [counter, dispatch]);
 
