@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/web-shop/static/css/main.857a5907.css",
-    "main.js": "/web-shop/static/js/main.c019b2fe.js",
+    "main.js": "/web-shop/static/js/main.8d1c2787.js",
     "static/media/food-delivery.jpg": "/web-shop/static/media/food-delivery.45bd196b340c214668ff.jpg",
     "static/media/error-not-found.jpg": "/web-shop/static/media/error-not-found.ce293654fc5b055593cf.jpg",
     "index.html": "/web-shop/index.html",
     "main.857a5907.css.map": "/web-shop/static/css/main.857a5907.css.map",
-    "main.c019b2fe.js.map": "/web-shop/static/js/main.c019b2fe.js.map"
+    "main.8d1c2787.js.map": "/web-shop/static/js/main.8d1c2787.js.map"
   },
   "entrypoints": [
     "static/css/main.857a5907.css",
-    "static/js/main.c019b2fe.js"
+    "static/js/main.8d1c2787.js"
   ]
 }
