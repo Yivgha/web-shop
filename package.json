@@ -1,4 +1,5 @@
-{"homepage": "https://yivgha.github.io/web-shop/",
+{
+  "homepage": "https://yivgha.github.io/web-shop/",
   "name": "web-shop",
   "version": "0.1.0",
   "private": true,
@@ -55,5 +56,13 @@
   },
   "devDependencies": {
     "gh-pages": "^5.0.0"
-  }
+  },
+  "description": "Web Shop rules",
+  "main": "prettier.config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://yivgha.github.io/web-shop/"
+  },
+  "author": "",
+  "license": "ISC"
 }
