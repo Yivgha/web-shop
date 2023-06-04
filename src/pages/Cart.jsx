@@ -20,7 +20,7 @@ const Cart = () => {
   const [cartPhone, setCartPhone] = useState("");
     const [cartName, setCartName] = useState("");
   // const captchaRef = createRef();
-  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const [itemsToSumbit, setItemsToSubmit] = useState(cart);
   
   const handleCartSubmit = (e) => {
@@ -37,7 +37,8 @@ const Cart = () => {
       setCartPhone("");
       setCartName("");
       handleClearCart();
-      setItemsToSubmit(cart);
+      setItemsToSubmit("");
+      setBtnDisabled(true);
       // captchaRef.current.getValue();
       //   captchaRef.current.reset();
       toast.success("Submitted")
@@ -47,10 +48,12 @@ const Cart = () => {
   };
 
   const fireAddUserCart = async () => {
-  const testCollection = collection(firestore, "users", `${user.uid}`, "cart");
-    await addDoc(testCollection, {
-      title: `${new Date()}`, name: cartName,
-      address: cartAddress, email: cartEmail,
+  const addToCartCol = collection(firestore, "users", `${user.uid}`, "cart");
+    await addDoc(addToCartCol, {
+      date: `${new Date().toLocaleString("ua")}`,
+      name: cartName,
+      address: cartAddress,
+      email: cartEmail,
       phone: cartPhone,
       items: itemsToSumbit,
       totalPrice: totalPrice
@@ -66,7 +69,7 @@ const Cart = () => {
 
     useEffect(() => {
       handleTotalPrice();
-      setBtnDisabled(false);
+      handleFormCheck()
         // eslint-disable-next-line
     }, [counter, dispatch]);
 
@@ -87,26 +90,37 @@ const Cart = () => {
     dispatch({ type: actionType.SET_TOTAL_PRICE, total: totalPrice });
   };
 
+  const handleFormCheck = () => {
+    if (cartAddress.trim().length < 1 || cartEmail.trim().length < 1 || cartName.trim().length < 1 || cartPhone.trim().length < 1) {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  };
+
   return (
     <div className='container-fluid cart-container'>
       <div className="cart-left">
         <div className='cart-map'>MAP HERE</div>
 
-        <form className='form-group' autoComplete="off">
+        <form id="cart-form" className='form-group' autoComplete="off">
           <label className='cart-label'>Address:</label>
-                  <input className='form-control cart-input' required
+                  <input id="cart-address" className='form-control cart-input' required aria-required="true"
                       placeholder='Write your address' type="address"
-                onChange={(e)=>setCartAddress(e.target.value)} value={cartAddress}></input>
-          <label className='cart-label'>Email:</label>
-                  <input className='form-control cart-input' required
+            onChange={(e) => {
+              setCartAddress(e.target.value);
+            }}
+            value={cartAddress}></input>
+          <label  className='cart-label'>Email:</label>
+                  <input id="cart-email" className='form-control cart-input' required aria-required="true"
                       placeholder='Write your email' type="email"
                       onChange={(e) => setCartEmail(e.target.value)} value={cartEmail}></input>
-          <label className='cart-label'>Phone:</label>
-                  <input className='form-control cart-input' required
+          <label  className='cart-label'>Phone:</label>
+                  <input id="cart-phone" className='form-control cart-input' required aria-required="true"
                       placeholder='Write your phone' type="tel"
                       onChange={(e) => setCartPhone(e.target.value)} value={cartPhone}></input>
-          <label className='cart-label'>Name:</label>
-                  <input className='form-control cart-input' required
+          <label  className='cart-label'>Name:</label>
+                  <input  id="cart-name"className='form-control cart-input' required aria-required="true"
                       placeholder='Write your name' type="text"
                       onChange={(e) => setCartName(e.target.value)} value={cartName}></input>
         </form>
@@ -205,9 +219,11 @@ const Cart = () => {
                       </div> */}
                       
             <button type="submit" disabled={btnDisabled}
-              className="btn btn-primary cart-btn"
+              className="btn btn-primary cart-btn"              
               onClick={handleCartSubmit}
-            >Submit</button>
+            >Submit
+            {<div className='hide'>Fill all the form's fields to submit</div>}
+            </button>
           </div>
         </div>
         

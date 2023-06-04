@@ -33,7 +33,7 @@ const Signup = () => {
         password: password
       };
       dispatch({ type: actionType.SET_USER, user: data });
-      localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("user", JSON.stringify(user));
     const usersRef = doc(firestore, "users", `${uid}`);
     setDoc(usersRef, data).catch((err) => console.log(err.message));
 getDoc(usersRef);

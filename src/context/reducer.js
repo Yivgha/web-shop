@@ -6,8 +6,6 @@
 export const initialState = {
     user: null,
     isAuthenticated: false,
-    loading: false,
-    refresh: false,
     cart: [],
 }
 
@@ -29,14 +27,13 @@ const reducer = (state, action) => {
                 isAuthenticated: true,
             };
         
-        case actionType.LOGOUT:
+      case actionType.LOGOUT:
       localStorage.clear();
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-          cart: [],
-          loading: false,
+          cart: []
             };
         
       case actionType.SET_CART:
@@ -51,9 +48,6 @@ const reducer = (state, action) => {
           cart: action.cart,
           total: action.total
         }
-      
- 
-
       
         default:
             return state

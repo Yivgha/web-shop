@@ -41,9 +41,7 @@ const navigate = useNavigate();
     const getDoc = await getDocs(updUser);
     getDoc.forEach(element => {
       const newUser = element.data();
-      // if (newUser.uid === user.uid) {
         dispatch({ type: actionType.SET_USER, user: newUser });
-      // }
     });
   };
     
