@@ -13,9 +13,9 @@ import SelectedShop from "./components/Shop/SelectedShop";
 
 export const App = () => {
   return (
-    <HashRouter>
+    <HashRouter basename="https://yivgha.github.io/web-shop/">
       <Routes>
-        <Route exact path="https://yivgha.github.io/web-shop/" element={<Home />}>
+        <Route exact path="/" element={<Home />}>
           
           <Route  path="shop" element={<Shop />}>
             <Route path="/shop/:id" element={<SelectedShop />} />
