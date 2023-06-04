@@ -12,7 +12,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="https://yivgha.github.io/web-shop/" element={<Home />}>
+        <Route path="/" element={<Home />}>
           
           <Route exact path="shop" element={<Shop />}>
             <Route path="/shop/:id" element={<SelectedShop />} />
