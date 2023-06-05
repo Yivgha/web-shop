@@ -29,3 +29,5 @@ After submit your orded will be transferred to our site and we can fast prepare 
 If you ordered items, you can safely log out from the app. Please, avoid reloading page, it may cause some errors.
 
 <img src="./src/assets/lgout.jpg" alt="logout btn">
+
+P. S. Our app is adapted to big PC/laptop screens (1200px and higher), tablets (768px) and to different mobile screens (320-480px) for better user experience!
