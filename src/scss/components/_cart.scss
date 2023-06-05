@@ -41,8 +41,9 @@ display: flex;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     text-align: left;
+    padding-top: 15px;
 }
 .cart-label{
     font-size: 15px;
