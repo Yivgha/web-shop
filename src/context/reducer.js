@@ -1,8 +1,3 @@
-// import { fetchUser, fetchCart } from "../utils/fetchUserData";
-
-// const userInfo = fetchUser();
-// const cartInfo = fetchCart();
-
 export const initialState = {
     user: null,
     isAuthenticated: false,
@@ -17,7 +12,7 @@ export const actionType = {
 }
 
 const reducer = (state, action) => {
-    console.log(action);
+    // console.log(action);
 
     switch (action.type) {
         case actionType.SET_USER:

@@ -7,7 +7,7 @@ import { signOut } from "firebase/auth";
 import { useStateValue } from "../../context/StateProvider";
 import { actionType, initialState } from "../../context/reducer";
 import { collection, getDocs } from "firebase/firestore";
-import { redirect } from "react-router-dom";
+// import { redirect } from "react-router-dom";
 
 const Navbar = () => {
   
@@ -18,7 +18,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     
     const handleLogout = async() => {
-        if (isAuthenticated === true) {
+       
            await signOut(auth).then(() => {
             dispatch({
                 type: actionType.LOGOUT,
@@ -27,11 +27,7 @@ const Navbar = () => {
             localStorage.clear();
             navigate("/login");
         });
-        }
         
-        if (isAuthenticated === false) {
-                redirect("/login");
-            }
     };
     
    

@@ -1,49 +1,23 @@
 import React, {
   useState, useRef
-  , useEffect,
-  // useMemo
+  , useEffect
 } from 'react';
-// import ReCAPTCHA from "react-google-recaptcha";
 import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 import { actionType } from '../context/reducer';
 import { useStateValue } from "../context/StateProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import { firestore } from '../config/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
-// import Map from "../components/GoogleMap/GoogleMap";
-// import { Wrapper, GoogleMap, Marker} from "@googlemaps/react-wrapper";
-// import PlacesAutocomplete from '../components/GoogleMap/PlacesAuticomplete';
-// import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-
-
-// const libraries = ['places'];
 
 const Cart = () => {
   const [{ user, cart }, dispatch] = useStateValue();
-  // const { REACT_APP_SITE_KEY } = process.env;
-  
   const [cartAddress, setCartAddress] = useState("");
   const [cartEmail, setCartEmail] = useState("");
   const [cartPhone, setCartPhone] = useState("");
     const [cartName, setCartName] = useState("");
-  // const captchaRef = createRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [itemsToSumbit, setItemsToSubmit] = useState(cart);
-
-// const center = useMemo(() => ({ lat: 49.84, lng: 24.03 }), []);
-//   const [selectedPlace, setSelectedPlace] = useState("");
-
-  
-  // const { isLoaded } = useJsApiLoader({
-  //   id: "google-map-script",
-  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries,
-  // });
-
-  // useEffect(() => {
-  //   // console.log(isLoaded);
-  // }, [isLoaded]);
 
   const handleCartSubmit = (e) => {
     e.preventDefault();
@@ -61,8 +35,6 @@ const Cart = () => {
       handleClearCart();
       setItemsToSubmit("");
       setBtnDisabled(true);
-      // captchaRef.current.getValue();
-      //   captchaRef.current.reset();
       toast.success("Submitted")
     } else {
       toast.error("Your data wasn't send")
@@ -92,7 +64,6 @@ const Cart = () => {
     useEffect(() => {
       handleTotalPrice();
       handleFormCheck();
-      // initMap();
         // eslint-disable-next-line
     }, [counter, dispatch]);
 
@@ -121,41 +92,10 @@ const Cart = () => {
     }
   };
 
-
-
-
   return (
     <div className='container-fluid cart-container'>
       <div className="cart-left">
-   
-        
-
           <form id="cart-form" className='form-group' autoComplete="off">
-            
-{/* <div className='cart-map'> */}
-          
-          {/* {isLoaded && (
-            <> 
-              
-              <GoogleMap
-        zoom={12}
-        center={center}
-         mapContainerStyle={{ width: "500px", height: "250px", marginBottom: "20px" }}
-              >
-                
-        {selectedPlace && <Marker position={selectedPlace} />}
-      </GoogleMap>
-
-             
-            </>
-            )} */}
-         
-     {/* <Map id="map" lati={49.841861042531555} longi={24.031702228836615} /> */}
-
-        {/* </div> */}
-
-          {/* <PlacesAutocomplete className='form-control cart-input' setSelectedPlace={setSelectedPlace} /> */}
-          
 
           <label className='cart-label'>Address:</label>
           <input 
@@ -271,13 +211,6 @@ const Cart = () => {
           </div>
          
           <div className='cart-submit'>
-            {/* <div className='captcha'> */}
-            
-            {/* <ReCAPTCHA sitekey={REACT_APP_SITE_KEY} ref={captchaRef} onChange={() => setBtnDisabled(false)}
-            className='captcha'
-            /> */}
-{/*                           
-                      </div> */}
                       
             <button type="submit" disabled={btnDisabled}
               className="btn btn-primary cart-btn"              

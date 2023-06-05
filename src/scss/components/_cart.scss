@@ -38,6 +38,10 @@ display: flex;
 .form-group{
     width: 98%;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .cart-label{
     font-size: 15px;
@@ -391,7 +395,6 @@ margin-top: 10px;
 }
 .cart-products{
  height: 650px;
-// padding: 20px 20px 30px 20px;
     margin-bottom: 40px;
 }
 
