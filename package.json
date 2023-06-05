@@ -1,5 +1,4 @@
 {
-  "homepage": "https://yivgha.github.io/web-shop/",
   "name": "web-shop",
   "version": "0.1.0",
   "private": true,
@@ -53,7 +52,6 @@
     ]
   },
   "description": "Web Shop rules",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://yivgha.github.io/web-shop/"
