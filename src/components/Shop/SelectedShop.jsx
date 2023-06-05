@@ -20,7 +20,7 @@ const SelectedShop = ({ selectedShop}) => {
   const [myCart, setMyCart] = useState([]);
 
 
-console.log(cart);
+// console.log(cart);
 
   return (
    <div>
