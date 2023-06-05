@@ -58,6 +58,7 @@
     "gh-pages": "^5.0.0"
   },
   "description": "Web Shop rules",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://yivgha.github.io/web-shop/"
