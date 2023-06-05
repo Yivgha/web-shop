@@ -72,7 +72,7 @@ const Login = () => {
               placeholder='Set password'></input>
 
               <div className='btn-box login-btn-box'>
-                  <span className='login-bottom-text'>Don't have an accont? Sign in 
+                  <span className='login-bottom-text'>Don't have an account? Sign in 
             <Link to="/signup" className='link'> HERE </Link>
           </span>
   <button type="submit" className='btn btn-success btn-md login-btn'>LOGIN</button>
