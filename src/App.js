@@ -15,7 +15,7 @@ export const App = () => {
   return (
     <HashRouter basename="https://yivgha.github.io/web-shop/">
       <Routes>
-        <Route exact path="/" element={<Home />}>
+        <Route exact path="https://yivgha.github.io/web-shop/" element={<Home />}>
           
           <Route  path="shop" element={<Shop />}>
             <Route path="/shop/:id" element={<SelectedShop />} />
